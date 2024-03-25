@@ -1,0 +1,141 @@
+Program:
+  commands *= ProgramCommand
+;
+ProgramCommand:
+    Device|EventCommand
+;
+EventCommand:
+  Commentline|ControlStructure|Variable|Functions|CustomEvent|BasicEvent
+  ;
+  
+//Devices
+Device:
+    Sensor|Camera|Connection
+    ;
+Camera:
+    'Camera' '(' name =  ID ',' position = Position ',' ipAddress = Expression ',' eventName = ID ')'
+    ;
+Sensor:
+    'Sensor' '(' name =  ID ',' position = Position ')'
+    ;
+Connection:
+    'Connection' '(' name = ID ',' firstDevice =  ID ',' secondDevice = ID ',' type = ConnectionType ',' line = STRING')'
+    ;
+Position:
+    '(' INT','INT','INT ')'
+    ; 
+ConnectionType:
+    'wire'|'wireless'
+    ; 
+
+//Events
+CustomEvent:
+    'Event(' name =  ID ',' '['commandList += EventCommand[','] ']'')'
+    ;
+BasicEvent:
+    EventPhoto|EventPhotos|EventWait|EventVideo|EventSaveLocation|EventTimerTrigger|EventSignalTrigger|EventSendSignal|EventSendData|EventReceiveData
+    ;
+EventWait:
+    'Event(' name = 'Wait' ',' duration = Expression ')'
+    ; 
+EventPhoto:
+    'Event(' name = 'Photo'')'
+    ;
+EventPhotos:
+    'Event(' name = 'Photos' ',' count = Expression ',' delay = Expression ')'
+    ;
+EventVideo:
+    'Event(' name = 'Video' ',' duration = Expression ')'
+    ;
+EventSaveLocation:
+    'Event(' name = 'SaveLocation' ',' filepath = Expression ')'
+    ;  
+EventTimerTrigger:
+    'Event(' name = 'TimerTrigger' ',' duration = Expression ',' event = ID')'
+    ;  
+EventSignalTrigger:
+    'Event(' name = 'SignalTrigger' ',' inputLine = Expression ',' value = Expression ',' event = ID')'
+    ;  
+EventSendSignal:
+    'Event(' name = 'SendSignal' ',' outputLine = Expression ',' value = Expression')'
+    ;  
+EventSendData:
+    'Event(' name = 'SendData' ',' data = Expression')'
+    ; 
+EventReceiveData:
+    'Event(' name = 'ReceiveData' ',' variable = ID ')'
+    ; 
+
+
+
+//ControlStructure
+ControlStructure:
+    Condition|WhileLoop|Break
+    ;
+Condition:
+    'if' '(' expression = Expression ')' '{'commands += EventCommand'}'
+    ;
+WhileLoop:
+    'while' '('expression = Expression')' '{'commands += EventCommand'}'
+    ;
+Break:
+    'break'
+    ;
+
+
+//Expression
+Expression:
+    //"Expression"
+    Functions|ArithmeticOperation|STRING|BOOL
+;
+ArithmeticOperation: 
+    operand=Operand (operand=Symbol operand=Operand)* 
+;
+Symbol:
+    '+' | '-' | '*' | '/' 
+;
+Operand:
+    operand=NUMBER | operand=ID | ('(' operand=ArithmeticOperation ')')
+;
+
+//Variable
+Variable:
+    name = ID '=' value = Expression
+    ;
+    
+//Functions
+Functions:
+    SendData|ReceiveData|SendTCP|ReceiveTCP|WriteFile|ReadFile|Trigger
+;
+SendData:
+    'sendData' '(' receiverDevice = ID ',' data = Expression ')'
+;
+ReceiveData:
+    'receiveData' '('transmitterDevice = ID ')' | 'receiveData' '('')'
+;
+SendTCP:
+    'sendTCP' '('ipAddress = STRING ',' port = INT ',' role = TCPRole ',' data = Expression ')'
+;
+ReceiveTCP:
+    'receiveTCP' '('ipAddress = STRING ',' port = INT ',' role = TCPRole ')'
+;
+WriteFile:
+    'writeFile' '('filename = STRING ',' data = Expression ')'
+;
+ReadFile:
+    'readFile' '('filename = STRING ')'
+;
+Trigger:
+    'trigger' '('device = ID ')'
+;
+TCPRole:
+    'client'|'server'
+;
+
+
+
+
+//Comments
+Commentline:
+  '#'text = /.*$/
+;

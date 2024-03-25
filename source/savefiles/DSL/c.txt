@@ -1,0 +1,13 @@
+#The following lines define all the custom Events which where created
+Event(custom.0:Oben, [Event(DSLEventWait, 0), Event(DSLEventPhoto, 1, 1), ])
+Event(custom.1:Unten, [Event(custom.1:Unten), Event(DSLEventVideo, 6), Event(DSLEventVideo, 0), ])
+
+
+
+#The following lines define all the devices which where created
+Camera(KameraOben_0, (282,242,0), custom.0: Oben, 0.0.0.0, custom.0: Oben)
+Sensor(Lichtschranke_1, (163,355,0))
+connect(KameraOben_0, Lichtschranke_1)
+Camera(KameraUnten_3, (411,447,0), custom.0: Oben, 0.0.0.0, custom.0: Oben)
+connect(Lichtschranke_1, KameraUnten_3)
+

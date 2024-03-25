@@ -1,0 +1,57 @@
+#Variable and Controlstructure tests
+test0 = 7
+if(test0){
+    test0 = 1
+}
+while(test0){
+    test0 = 0
+}
+test = 33 + 5 * (3-4+test0)
+test1 = "hallo1"
+
+
+#Event tests
+Event(WaitToPhotos, [
+                    a_8 = 5,
+                    while(a_8){
+                        a_8 = a_8 - 1
+                    },
+                    Event(Wait, a_8), 
+                    Event(Photos, 5, 9)
+                    ])
+                    
+Event(Custumonus, [
+                    test0 = 34,
+                    if(test0){
+                        test0 = 1
+                        break
+                    },
+                    duration = receiveData(),
+                    count = receiveData(),
+                    delay = receiveData(),
+                    Event(Wait, duration), 
+                    Event(Photo),
+                    Event(Photos, count, delay),
+                    Event(Video, duration),
+                    Event(SaveLocation, "hierspeichern"),
+                    Event(TimerTrigger, 5, WaitToPhotos),
+                    Event(SignalTrigger, "pin3", True, WaitToPhotos),
+                    Event(SendSignal, "pin3", True)
+                    ])
+
+                    
+#Device tests
+Camera(KameraOben, (1,4,0), "192.168.0.0", WaitToPhotos)
+Camera(KameraUnten, (4,0,0), "192.168.0.1", WaitToPhotos)
+Sensor(Lichtschranke, (0,3,0))
+Connection(Kabel_1 ,KameraOben, Lichtschranke, wire, "Pin1")      
+
+
+#Function tests
+sendData(KameraOben, 2)    
+receiveData(KameraOben)    
+sendTCP("192.168.0.1", 8080, client, 5)   
+receiveTCP("192.168.0.1", 8080, client)
+writeFile("savefile", "HelloUniverse")
+writeFile("savefile", True)
+readFile("savefile")

@@ -1,0 +1,163 @@
+
+    digraph textX {
+    fontname = "Bitstream Vera Sans"
+    fontsize = 8
+    node[
+        shape=record,
+        style=filled,
+        fillcolor=aliceblue
+    ]
+    nodesep = 0.3
+    edge[dir=black,arrowtail=empty]
+
+
+2109366652272[ label="{Program|}"]
+
+2109366654256[ label="{*ProgramCommand|}"]
+
+2109366656240[ label="{*EventCommand|}"]
+
+2109366658224[ label="{*Device|}"]
+
+2109366628464[ label="{Camera|name: ID\lposition: Position\leventName: ID\l}"]
+
+2109366661200[ label="{Sensor|name: ID\lposition: Position\l}"]
+
+2109366667152[ label="{Connection|name: ID\lfirstDevice: ID\lsecondDevice: ID\ltype: ConnectionType\lline: STRING\l}"]
+
+2109366670128[ label="{CustomEvent|name: ID\l}"]
+
+2109366669136[ label="{*BasicEvent|}"]
+
+2109366562000[ label="{EventWait|name: STRING\l}"]
+
+2109366559024[ label="{EventPhoto|name: STRING\l}"]
+
+2109366569936[ label="{EventPhotos|name: STRING\l}"]
+
+2109366553072[ label="{EventVideo|name: STRING\l}"]
+
+2109366564976[ label="{EventSaveLocation|name: STRING\l}"]
+
+2109366550096[ label="{EventTimerTrigger|name: STRING\levent: ID\l}"]
+
+2109366557040[ label="{EventSignalTrigger|name: STRING\levent: ID\l}"]
+
+2109366560016[ label="{EventSendSignal|name: STRING\l}"]
+
+2109366570928[ label="{EventSendData|name: STRING\l}"]
+
+2109366548112[ label="{EventReceiveData|name: STRING\lvariable: ID\l}"]
+
+2109366573904[ label="{*ControlStructure|}"]
+
+2109366544144[ label="{Condition|}"]
+
+2109366574896[ label="{WhileLoop|}"]
+
+2109366552080[ label="{*Expression|}"]
+
+2109366576880[ label="{ArithmeticOperation|operand: optional\<list[OBJECT]\>\l}"]
+
+2109366547120[ label="{Operand|operand: OBJECT\l}"]
+
+2109366578864[ label="{Variable|name: ID\l}"]
+
+2109366549104[ label="{*Functions|}"]
+
+2109366581840[ label="{SendData|receiverDevice: ID\l}"]
+
+2109366582832[ label="{ReceiveData|transmitterDevice: ID\l}"]
+
+2109366587792[ label="{SendTCP|ipAddress: STRING\lport: INT\lrole: TCPRole\l}"]
+
+2109366592752[ label="{ReceiveTCP|ipAddress: STRING\lport: INT\lrole: TCPRole\l}"]
+
+2109366584816[ label="{WriteFile|filename: STRING\l}"]
+
+2109366589776[ label="{ReadFile|filename: STRING\l}"]
+
+2109366593744[ label="{Trigger|device: ID\l}"]
+
+2109366597712[ label="{Commentline|text: STRING\l}"]
+
+
+
+2109366652272 -> 2109366654256[arrowtail=diamond, dir=both, headlabel="commands 0..*"]
+2109366654256 -> 2109366658224 [dir=back]
+2109366654256 -> 2109366656240 [dir=back]
+2109366656240 -> 2109366597712 [dir=back]
+2109366656240 -> 2109366573904 [dir=back]
+2109366656240 -> 2109366578864 [dir=back]
+2109366656240 -> 2109366549104 [dir=back]
+2109366656240 -> 2109366670128 [dir=back]
+2109366656240 -> 2109366669136 [dir=back]
+2109366658224 -> 2109366661200 [dir=back]
+2109366658224 -> 2109366628464 [dir=back]
+2109366658224 -> 2109366667152 [dir=back]
+2109366628464 -> 2109366552080[arrowtail=diamond, dir=both, headlabel="ipAddress "]
+2109366670128 -> 2109366656240[arrowtail=diamond, dir=both, headlabel="commandList 1..*"]
+2109366669136 -> 2109366559024 [dir=back]
+2109366669136 -> 2109366569936 [dir=back]
+2109366669136 -> 2109366562000 [dir=back]
+2109366669136 -> 2109366553072 [dir=back]
+2109366669136 -> 2109366564976 [dir=back]
+2109366669136 -> 2109366550096 [dir=back]
+2109366669136 -> 2109366557040 [dir=back]
+2109366669136 -> 2109366560016 [dir=back]
+2109366669136 -> 2109366570928 [dir=back]
+2109366669136 -> 2109366548112 [dir=back]
+2109366562000 -> 2109366552080[arrowtail=diamond, dir=both, headlabel="duration "]
+2109366569936 -> 2109366552080[arrowtail=diamond, dir=both, headlabel="count "]
+2109366569936 -> 2109366552080[arrowtail=diamond, dir=both, headlabel="delay "]
+2109366553072 -> 2109366552080[arrowtail=diamond, dir=both, headlabel="duration "]
+2109366564976 -> 2109366552080[arrowtail=diamond, dir=both, headlabel="filepath "]
+2109366550096 -> 2109366552080[arrowtail=diamond, dir=both, headlabel="duration "]
+2109366557040 -> 2109366552080[arrowtail=diamond, dir=both, headlabel="inputLine "]
+2109366557040 -> 2109366552080[arrowtail=diamond, dir=both, headlabel="value "]
+2109366560016 -> 2109366552080[arrowtail=diamond, dir=both, headlabel="outputLine "]
+2109366560016 -> 2109366552080[arrowtail=diamond, dir=both, headlabel="value "]
+2109366570928 -> 2109366552080[arrowtail=diamond, dir=both, headlabel="data "]
+2109366573904 -> 2109366544144 [dir=back]
+2109366573904 -> 2109366574896 [dir=back]
+2109366544144 -> 2109366552080[arrowtail=diamond, dir=both, headlabel="expression "]
+2109366544144 -> 2109366656240[arrowtail=diamond, dir=both, headlabel="commands 1..*"]
+2109366574896 -> 2109366552080[arrowtail=diamond, dir=both, headlabel="expression "]
+2109366574896 -> 2109366656240[arrowtail=diamond, dir=both, headlabel="commands 1..*"]
+2109366552080 -> 2109366549104 [dir=back]
+2109366552080 -> 2109366576880 [dir=back]
+2109366620528[ label="{*OBJECT|}"]
+
+2109366620528[ label="{*OBJECT|}"]
+
+2109366578864 -> 2109366552080[arrowtail=diamond, dir=both, headlabel="value "]
+2109366549104 -> 2109366581840 [dir=back]
+2109366549104 -> 2109366582832 [dir=back]
+2109366549104 -> 2109366587792 [dir=back]
+2109366549104 -> 2109366592752 [dir=back]
+2109366549104 -> 2109366584816 [dir=back]
+2109366549104 -> 2109366589776 [dir=back]
+2109366549104 -> 2109366593744 [dir=back]
+2109366581840 -> 2109366552080[arrowtail=diamond, dir=both, headlabel="data "]
+2109366587792 -> 2109366552080[arrowtail=diamond, dir=both, headlabel="data "]
+2109366584816 -> 2109366552080[arrowtail=diamond, dir=both, headlabel="data "]
+match_rules [ shape=plaintext, label=< <table>
+	<tr>
+		<td><b>Break</b></td><td>break</td>
+	</tr>
+	<tr>
+		<td><b>ConnectionType</b></td><td>wire|wireless</td>
+	</tr>
+	<tr>
+		<td><b>Position</b></td><td>( INT , INT , INT )</td>
+	</tr>
+	<tr>
+		<td><b>Symbol</b></td><td>+|-|*|/</td>
+	</tr>
+	<tr>
+		<td><b>TCPRole</b></td><td>client|server</td>
+	</tr>
+</table> >]
+
+
+}

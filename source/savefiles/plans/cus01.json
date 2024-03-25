@@ -1,0 +1,14 @@
+[
+    {
+        "id": 0,
+        "class": "camera",
+        "positionX": 150,
+        "positionY": 135,
+        "positionZ": 0,
+        "size": 30,
+        "name": "/",
+        "modell": "/",
+        "ipAddress": "0.0.0.0",
+        "DSLEventIdList": "custom.0: WaitToPhoto"
+    }
+]

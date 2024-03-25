@@ -1,0 +1,16 @@
+{
+    "0": {
+        "name": "Wait to Photo",
+        "DSLEventDictionaryList": [
+            {
+                "name": "DSLEventWait",
+                "duration": "0"
+            },
+            {
+                "name": "DSLEventPhoto",
+                "delay": "1",
+                "count": "1"
+            }
+        ]
+    }
+}

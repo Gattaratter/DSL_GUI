@@ -1,0 +1,41 @@
+Event(PhotoCapture, [
+                    duration = receiveData(),
+                    count = receiveData(),
+                    delay = receiveData(),
+                    Event(Wait, duration), 
+                    Event(Photos, count, delay)
+                    ])
+
+Event(Aktion_1, [
+                    Event(SignalTrigger, "Pin1", True, PhotoCapture),
+                    Event(SendData, "KameraOben hat die Bildaufnahme abgeschlossen")
+                    ])
+
+Event(Aktion_2, [
+                    Event(SignalTrigger, "Pin1", True, PhotoCapture),
+                    Event(SendData, "KameraUnten hat die Bildaufnahme abgeschlossen")
+                    ])
+                    
+                    
+#Erstellung der benoetigten Geraete
+Camera(KameraOben, (1,4,0), "192.168.0.0", Aktion_1)
+Camera(KameraUnten, (4,0,0), "192.168.0.1", Aktion_2)
+
+Sensor(Lichtschranke, (0,3,0))
+
+Connection(Kabel_1 ,KameraOben, Lichtschranke, wire, "Pin1")
+Connection(Kabel_2, KameraUnten, Lichtschranke, wire, "Pin1")
+
+
+#Logik des ausfuehrenden PCs
+geschwindigkeit = 10
+distanz_1 = 100
+distanz_2 = 300
+
+sendData(KameraOben, distanz_1/geschwindigkeit)
+sendData(KameraOben, 5)
+sendData(KameraOben, 2)
+
+sendData(KameraUnten, distanz_2/geschwindigkeit)
+sendData(KameraUnten, 10)
+sendData(KameraUnten, 1)

@@ -1,0 +1,35 @@
+[
+    {
+        "id": 0,
+        "class": "camera",
+        "positionX": 176,
+        "positionY": 161,
+        "positionZ": 0,
+        "size": 30,
+        "name": "/",
+        "modell": "/",
+        "ipAddress": "0.0.0.0",
+        "DSLEventIdList": null
+    },
+    {
+        "id": 1,
+        "class": "camera",
+        "positionX": 415,
+        "positionY": 149,
+        "positionZ": 0,
+        "size": 30,
+        "name": "/",
+        "modell": "/",
+        "ipAddress": "0.0.0.0",
+        "DSLEventIdList": null
+    },
+    {
+        "id": 2,
+        "class": "sensor",
+        "positionX": 97,
+        "positionY": 416,
+        "positionZ": 0,
+        "size": 30,
+        "name": "/"
+    }
+]

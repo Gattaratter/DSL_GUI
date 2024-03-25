@@ -1,0 +1,5 @@
+{
+  "0": {"name":"DSLEventWait"},
+  "1": {"name":"DSLEventPhoto"},
+  "2": {"name":"DSLEventVideo"}
+}

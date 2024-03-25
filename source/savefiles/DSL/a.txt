@@ -1,0 +1,13 @@
+//The following lines define all the custom Events which where created
+Event(WaitToPhoto, [Event(DSLEventWait, 0), Event(DSLEventPhoto, 1, 1), ])
+Event(WaitToPhoto2, [Event(WaitToPhoto, [Event(DSLEventWait, 6), Event(DSLEventPhoto, 1, 1), ]), ])
+
+
+
+//The following lines define all the devices which where created
+Camera(KameraOben_0, (282,242,0), "0.0.0.0", custom.0: WaitToPhoto)
+Sensor(Lichtschranke_1, (163,355,0))
+connect(KameraOben_0, Lichtschranke_1)
+Camera(KameraUnten_3, (411,447,0), "0.0.0.0", custom.0: WaitToPhoto)
+connect(Lichtschranke_1, KameraUnten_3)
+
