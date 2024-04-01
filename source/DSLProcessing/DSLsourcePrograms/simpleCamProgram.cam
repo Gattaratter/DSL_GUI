@@ -1,0 +1,24 @@
+Event(PhotoCapture, [
+                    Event(ReceiveData, duration),
+                    Event(ReceiveData, count),
+                    Event(ReceiveData, delay),
+
+                    Event(Wait, duration), 
+                    Event(Photos, "sdf", delay)
+                    ])
+                  
+#Erstellung der benoetigten Geraete
+ip =  "192.168.0.0"
+Camera(KameraOben, (1,4,0), ip, PhotoCapture)
+
+Sensor(Lichtschranke, (0,3,0))
+
+Connection(Kabel_1 ,KameraOben, Lichtschranke, wire, "Pin1")
+
+#Logik des ausfuehrenden PCs
+geschwindigkeit = 10
+distanz_1 = 100
+
+sendData(KameraOben, distanz_1/geschwindigkeit)
+sendData(KameraOben, 5)
+sendData(KameraOben, 2)

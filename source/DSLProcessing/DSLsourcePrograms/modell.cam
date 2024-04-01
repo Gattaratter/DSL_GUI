@@ -1,25 +1,26 @@
 Event(PhotoCapture, [
-                    duration = receiveData(),
-                    count = receiveData(),
-                    delay = receiveData(),
+                    Event(ReceiveData, duration),
+                    Event(ReceiveData, count),
+                    Event(ReceiveData, delay),
+
                     Event(Wait, duration), 
                     Event(Photos, count, delay)
                     ])
 
-Event(Aktion_1, [
+Event(EventKameraOben, [
                     Event(SignalTrigger, "Pin1", True, PhotoCapture),
                     Event(SendData, "KameraOben hat die Bildaufnahme abgeschlossen")
                     ])
 
-Event(Aktion_2, [
+Event(EventKameraUnten, [
                     Event(SignalTrigger, "Pin1", True, PhotoCapture),
                     Event(SendData, "KameraUnten hat die Bildaufnahme abgeschlossen")
                     ])
                     
                     
 #Erstellung der benoetigten Geraete
-Camera(KameraOben, (1,4,0), "192.168.0.0", Aktion_1)
-Camera(KameraUnten, (4,0,0), "192.168.0.1", Aktion_2)
+Camera(KameraOben, (1,4,0), "192.168.0.0", EventKameraOben)
+Camera(KameraUnten, (4,0,0), "192.168.0.1", EventKameraUnten)
 
 Sensor(Lichtschranke, (0,3,0))
 

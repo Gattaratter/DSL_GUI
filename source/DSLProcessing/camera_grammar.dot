@@ -11,139 +11,151 @@
     edge[dir=black,arrowtail=empty]
 
 
-2109366652272[ label="{Program|}"]
+2425401641280[ label="{Program|}"]
 
-2109366654256[ label="{*ProgramCommand|}"]
+2425401647232[ label="{*ProgramCommand|}"]
 
-2109366656240[ label="{*EventCommand|}"]
+2425401650208[ label="{*EventCommand|}"]
 
-2109366658224[ label="{*Device|}"]
+2425401649216[ label="{*Device|}"]
 
-2109366628464[ label="{Camera|name: ID\lposition: Position\leventName: ID\l}"]
+2425401652192[ label="{Camera|name: ID\lposition: Position\leventName: ID\l}"]
 
-2109366661200[ label="{Sensor|name: ID\lposition: Position\l}"]
+2425401654176[ label="{Sensor|name: ID\lposition: Position\l}"]
 
-2109366667152[ label="{Connection|name: ID\lfirstDevice: ID\lsecondDevice: ID\ltype: ConnectionType\lline: STRING\l}"]
+2425401667072[ label="{Connection|name: ID\lfirstDevice: ID\lsecondDevice: ID\ltype: ConnectionType\lline: STRING\l}"]
 
-2109366670128[ label="{CustomEvent|name: ID\l}"]
+2425401671040[ label="{CustomEvent|name: ID\l}"]
 
-2109366669136[ label="{*BasicEvent|}"]
+2425401673024[ label="{*BasicEvent|}"]
 
-2109366562000[ label="{EventWait|name: STRING\l}"]
+2425401571840[ label="{EventWait|name: STRING\l}"]
 
-2109366559024[ label="{EventPhoto|name: STRING\l}"]
+2425401549024[ label="{EventPhoto|name: STRING\l}"]
 
-2109366569936[ label="{EventPhotos|name: STRING\l}"]
+2425401566880[ label="{EventPhotos|name: STRING\l}"]
 
-2109366553072[ label="{EventVideo|name: STRING\l}"]
+2425401557952[ label="{EventVideo|name: STRING\l}"]
 
-2109366564976[ label="{EventSaveLocation|name: STRING\l}"]
+2425401559936[ label="{EventSaveLocation|name: STRING\l}"]
 
-2109366550096[ label="{EventTimerTrigger|name: STRING\levent: ID\l}"]
+2425401544064[ label="{EventTimerTrigger|name: STRING\levent: ID\l}"]
 
-2109366557040[ label="{EventSignalTrigger|name: STRING\levent: ID\l}"]
+2425401574816[ label="{EventSignalTrigger|name: STRING\levent: ID\l}"]
 
-2109366560016[ label="{EventSendSignal|name: STRING\l}"]
+2425401569856[ label="{EventSendSignal|name: STRING\l}"]
 
-2109366570928[ label="{EventSendData|name: STRING\l}"]
+2425401570848[ label="{EventSendData|name: STRING\l}"]
 
-2109366548112[ label="{EventReceiveData|name: STRING\lvariable: ID\l}"]
+2425401561920[ label="{EventReceiveData|name: STRING\lvariable: ID\l}"]
 
-2109366573904[ label="{*ControlStructure|}"]
+2425401565888[ label="{EventConfiguration|name: STRING\lattribute: ConfigAttribute\l}"]
 
-2109366544144[ label="{Condition|}"]
+2425401563904[ label="{EventAutomatedSignal|name: STRING\lmode: SignalMode\l}"]
 
-2109366574896[ label="{WhileLoop|}"]
+2425401552992[ label="{*ControlStructure|}"]
 
-2109366552080[ label="{*Expression|}"]
+2425401576800[ label="{Condition|}"]
 
-2109366576880[ label="{ArithmeticOperation|operand: optional\<list[OBJECT]\>\l}"]
+2425401555968[ label="{WhileLoop|}"]
 
-2109366547120[ label="{Operand|operand: OBJECT\l}"]
+2425401547040[ label="{Break|expression: STRING\l}"]
 
-2109366578864[ label="{Variable|name: ID\l}"]
+2425401580768[ label="{*Expression|}"]
 
-2109366549104[ label="{*Functions|}"]
+2425401604576[ label="{ArithmeticOperation|operand: optional\<list[OBJECT]\>\l}"]
 
-2109366581840[ label="{SendData|receiverDevice: ID\l}"]
+2425401587712[ label="{Operand|operand: OBJECT\l}"]
 
-2109366582832[ label="{ReceiveData|transmitterDevice: ID\l}"]
+2425401598624[ label="{Variable|name: ID\l}"]
 
-2109366587792[ label="{SendTCP|ipAddress: STRING\lport: INT\lrole: TCPRole\l}"]
+2425401606560[ label="{*Functions|}"]
 
-2109366592752[ label="{ReceiveTCP|ipAddress: STRING\lport: INT\lrole: TCPRole\l}"]
+2425401591680[ label="{SendData|receiverDevice: ID\l}"]
 
-2109366584816[ label="{WriteFile|filename: STRING\l}"]
+2425401582752[ label="{ReceiveData|transmitterDevice: ID\l}"]
 
-2109366589776[ label="{ReadFile|filename: STRING\l}"]
+2425401605568[ label="{SendTCP|ipAddress: STRING\lport: INT\lrole: TCPRole\l}"]
 
-2109366593744[ label="{Trigger|device: ID\l}"]
+2425401593664[ label="{ReceiveTCP|ipAddress: STRING\lport: INT\lrole: TCPRole\l}"]
 
-2109366597712[ label="{Commentline|text: STRING\l}"]
+2425401588704[ label="{WriteFile|filename: STRING\l}"]
+
+2425401581760[ label="{ReadFile|filename: STRING\l}"]
+
+2425401583744[ label="{Trigger|device: ID\l}"]
+
+2425372265936[ label="{Commentline|text: STRING\l}"]
 
 
 
-2109366652272 -> 2109366654256[arrowtail=diamond, dir=both, headlabel="commands 0..*"]
-2109366654256 -> 2109366658224 [dir=back]
-2109366654256 -> 2109366656240 [dir=back]
-2109366656240 -> 2109366597712 [dir=back]
-2109366656240 -> 2109366573904 [dir=back]
-2109366656240 -> 2109366578864 [dir=back]
-2109366656240 -> 2109366549104 [dir=back]
-2109366656240 -> 2109366670128 [dir=back]
-2109366656240 -> 2109366669136 [dir=back]
-2109366658224 -> 2109366661200 [dir=back]
-2109366658224 -> 2109366628464 [dir=back]
-2109366658224 -> 2109366667152 [dir=back]
-2109366628464 -> 2109366552080[arrowtail=diamond, dir=both, headlabel="ipAddress "]
-2109366670128 -> 2109366656240[arrowtail=diamond, dir=both, headlabel="commandList 1..*"]
-2109366669136 -> 2109366559024 [dir=back]
-2109366669136 -> 2109366569936 [dir=back]
-2109366669136 -> 2109366562000 [dir=back]
-2109366669136 -> 2109366553072 [dir=back]
-2109366669136 -> 2109366564976 [dir=back]
-2109366669136 -> 2109366550096 [dir=back]
-2109366669136 -> 2109366557040 [dir=back]
-2109366669136 -> 2109366560016 [dir=back]
-2109366669136 -> 2109366570928 [dir=back]
-2109366669136 -> 2109366548112 [dir=back]
-2109366562000 -> 2109366552080[arrowtail=diamond, dir=both, headlabel="duration "]
-2109366569936 -> 2109366552080[arrowtail=diamond, dir=both, headlabel="count "]
-2109366569936 -> 2109366552080[arrowtail=diamond, dir=both, headlabel="delay "]
-2109366553072 -> 2109366552080[arrowtail=diamond, dir=both, headlabel="duration "]
-2109366564976 -> 2109366552080[arrowtail=diamond, dir=both, headlabel="filepath "]
-2109366550096 -> 2109366552080[arrowtail=diamond, dir=both, headlabel="duration "]
-2109366557040 -> 2109366552080[arrowtail=diamond, dir=both, headlabel="inputLine "]
-2109366557040 -> 2109366552080[arrowtail=diamond, dir=both, headlabel="value "]
-2109366560016 -> 2109366552080[arrowtail=diamond, dir=both, headlabel="outputLine "]
-2109366560016 -> 2109366552080[arrowtail=diamond, dir=both, headlabel="value "]
-2109366570928 -> 2109366552080[arrowtail=diamond, dir=both, headlabel="data "]
-2109366573904 -> 2109366544144 [dir=back]
-2109366573904 -> 2109366574896 [dir=back]
-2109366544144 -> 2109366552080[arrowtail=diamond, dir=both, headlabel="expression "]
-2109366544144 -> 2109366656240[arrowtail=diamond, dir=both, headlabel="commands 1..*"]
-2109366574896 -> 2109366552080[arrowtail=diamond, dir=both, headlabel="expression "]
-2109366574896 -> 2109366656240[arrowtail=diamond, dir=both, headlabel="commands 1..*"]
-2109366552080 -> 2109366549104 [dir=back]
-2109366552080 -> 2109366576880 [dir=back]
-2109366620528[ label="{*OBJECT|}"]
+2425401641280 -> 2425401647232[arrowtail=diamond, dir=both, headlabel="commands 0..*"]
+2425401647232 -> 2425401649216 [dir=back]
+2425401647232 -> 2425401650208 [dir=back]
+2425401650208 -> 2425372265936 [dir=back]
+2425401650208 -> 2425401552992 [dir=back]
+2425401650208 -> 2425401598624 [dir=back]
+2425401650208 -> 2425401606560 [dir=back]
+2425401650208 -> 2425401671040 [dir=back]
+2425401650208 -> 2425401673024 [dir=back]
+2425401649216 -> 2425401654176 [dir=back]
+2425401649216 -> 2425401652192 [dir=back]
+2425401649216 -> 2425401667072 [dir=back]
+2425401652192 -> 2425401580768[arrowtail=diamond, dir=both, headlabel="ipAddress "]
+2425401671040 -> 2425401650208[arrowtail=diamond, dir=both, headlabel="commandList 1..*"]
+2425401673024 -> 2425401549024 [dir=back]
+2425401673024 -> 2425401566880 [dir=back]
+2425401673024 -> 2425401571840 [dir=back]
+2425401673024 -> 2425401557952 [dir=back]
+2425401673024 -> 2425401559936 [dir=back]
+2425401673024 -> 2425401544064 [dir=back]
+2425401673024 -> 2425401574816 [dir=back]
+2425401673024 -> 2425401569856 [dir=back]
+2425401673024 -> 2425401570848 [dir=back]
+2425401673024 -> 2425401561920 [dir=back]
+2425401673024 -> 2425401565888 [dir=back]
+2425401673024 -> 2425401563904 [dir=back]
+2425401571840 -> 2425401580768[arrowtail=diamond, dir=both, headlabel="duration "]
+2425401566880 -> 2425401580768[arrowtail=diamond, dir=both, headlabel="count "]
+2425401566880 -> 2425401580768[arrowtail=diamond, dir=both, headlabel="delay "]
+2425401557952 -> 2425401580768[arrowtail=diamond, dir=both, headlabel="duration "]
+2425401559936 -> 2425401580768[arrowtail=diamond, dir=both, headlabel="filepath "]
+2425401544064 -> 2425401580768[arrowtail=diamond, dir=both, headlabel="duration "]
+2425401574816 -> 2425401580768[arrowtail=diamond, dir=both, headlabel="inputLine "]
+2425401574816 -> 2425401580768[arrowtail=diamond, dir=both, headlabel="value "]
+2425401569856 -> 2425401580768[arrowtail=diamond, dir=both, headlabel="outputLine "]
+2425401569856 -> 2425401580768[arrowtail=diamond, dir=both, headlabel="value "]
+2425401570848 -> 2425401580768[arrowtail=diamond, dir=both, headlabel="data "]
+2425401565888 -> 2425401580768[arrowtail=diamond, dir=both, headlabel="value "]
+2425401563904 -> 2425401580768[arrowtail=diamond, dir=both, headlabel="outputLine "]
+2425401563904 -> 2425401580768[arrowtail=diamond, dir=both, headlabel="value "]
+2425401552992 -> 2425401576800 [dir=back]
+2425401552992 -> 2425401555968 [dir=back]
+2425401552992 -> 2425401547040 [dir=back]
+2425401576800 -> 2425401580768[arrowtail=diamond, dir=both, headlabel="expression "]
+2425401576800 -> 2425401650208[arrowtail=diamond, dir=both, headlabel="commands 1..*"]
+2425401555968 -> 2425401580768[arrowtail=diamond, dir=both, headlabel="expression "]
+2425401555968 -> 2425401650208[arrowtail=diamond, dir=both, headlabel="commands 1..*"]
+2425401580768 -> 2425401606560 [dir=back]
+2425401580768 -> 2425401604576 [dir=back]
+2425401670048[ label="{*OBJECT|}"]
 
-2109366620528[ label="{*OBJECT|}"]
+2425401670048[ label="{*OBJECT|}"]
 
-2109366578864 -> 2109366552080[arrowtail=diamond, dir=both, headlabel="value "]
-2109366549104 -> 2109366581840 [dir=back]
-2109366549104 -> 2109366582832 [dir=back]
-2109366549104 -> 2109366587792 [dir=back]
-2109366549104 -> 2109366592752 [dir=back]
-2109366549104 -> 2109366584816 [dir=back]
-2109366549104 -> 2109366589776 [dir=back]
-2109366549104 -> 2109366593744 [dir=back]
-2109366581840 -> 2109366552080[arrowtail=diamond, dir=both, headlabel="data "]
-2109366587792 -> 2109366552080[arrowtail=diamond, dir=both, headlabel="data "]
-2109366584816 -> 2109366552080[arrowtail=diamond, dir=both, headlabel="data "]
+2425401598624 -> 2425401580768[arrowtail=diamond, dir=both, headlabel="value "]
+2425401606560 -> 2425401591680 [dir=back]
+2425401606560 -> 2425401582752 [dir=back]
+2425401606560 -> 2425401605568 [dir=back]
+2425401606560 -> 2425401593664 [dir=back]
+2425401606560 -> 2425401588704 [dir=back]
+2425401606560 -> 2425401581760 [dir=back]
+2425401606560 -> 2425401583744 [dir=back]
+2425401591680 -> 2425401580768[arrowtail=diamond, dir=both, headlabel="data "]
+2425401605568 -> 2425401580768[arrowtail=diamond, dir=both, headlabel="data "]
+2425401588704 -> 2425401580768[arrowtail=diamond, dir=both, headlabel="data "]
 match_rules [ shape=plaintext, label=< <table>
 	<tr>
-		<td><b>Break</b></td><td>break</td>
+		<td><b>ConfigAttribute</b></td><td>width|height|offsetX|offsetY|exposuretime|pixelformat|position</td>
 	</tr>
 	<tr>
 		<td><b>ConnectionType</b></td><td>wire|wireless</td>
@@ -152,7 +164,10 @@ match_rules [ shape=plaintext, label=< <table>
 		<td><b>Position</b></td><td>( INT , INT , INT )</td>
 	</tr>
 	<tr>
-		<td><b>Symbol</b></td><td>+|-|*|/</td>
+		<td><b>SignalMode</b></td><td>flashlight|begin|end</td>
+	</tr>
+	<tr>
+		<td><b>Symbol</b></td><td>+|-|*|/|&lt;|&gt;|==</td>
 	</tr>
 	<tr>
 		<td><b>TCPRole</b></td><td>client|server</td>

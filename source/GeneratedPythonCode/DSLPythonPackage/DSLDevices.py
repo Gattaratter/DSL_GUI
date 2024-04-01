@@ -1,5 +1,6 @@
-from pypylon import pylon
-from pypylon import genicam
+from PypylonMockup import pylon
+#from pypylon import pylon
+
 import time
 import timeit
 from threading import Thread, Event
@@ -27,10 +28,11 @@ class Camera(Device):
         self.camera = None
         self.savelocation = "."
         self.thread = None
-        self.messageQueueReceive = queue.Queue
-        self.messageQueueSend = queue.Queue
+        self.messageQueueReceive = queue.Queue()
+        self.messageQueueSend = queue.Queue()
         self.eventStop = Event()
         self.eventStop.clear()
+        self.signalMode = None
 
         self.start_thread()
 
@@ -46,10 +48,11 @@ class Camera(Device):
         selfcamera = None
         tlFactory = pylon.TlFactory.GetInstance()
         devices = tlFactory.EnumerateDevices()
+
         for cam in devices:
-            if cam.GetDeviceInfo().GetIpAddress == self.ipAddress:
-                selfcamera = cam
-                selfcamera.Open()
+            if cam.GetDeviceInfo().GetIpAddress() == self.ipAddress:
+                self.camera = cam
+                self.camera.Open()
                 return
 
     def eventPhoto(self):
@@ -61,8 +64,8 @@ class Camera(Device):
         quality = 100
         ipo.SetQuality(quality)
 
-        filename = f"{self.savelocation}.jpeg" % quality
-        img.Save(pylon.ImageFileFormat_Jpeg, filename, ipo)
+        filename = f"{self.savelocation}.jpeg"
+        img.Save("JPEG", filename, ipo)
 
         img.Release()
         self.camera.StopGrabbing()
@@ -99,7 +102,7 @@ class Camera(Device):
                     self.camera.StopGrabbing()
             imageWindow.Close()
 
-        except genicam.GenericException as e:
+        except Exception as e:
             print("An exception occurred.", e)
 
 
@@ -133,9 +136,34 @@ class Camera(Device):
         self.messageQueueSend.put(data)
 
     def eventReceiveData(self):
-        value = self.messageQueueSend.get()
+        value = self.messageQueueReceive.get()
         return value
 
+    def eventConfiguration(self, attribute, value):
+        try:
+            match attribute:
+                case "width":
+                    self.camera.Width.Value = value
+                case "height":
+                    self.camera.Height.Value = value
+                case "offsetX":
+                    self.camera.OffsetX.Value = value
+                case "offsetY":
+                    self.camera.OffsetY.Value = value
+                case "exposuretime":
+                    self.camera.ExposuretimeAbs.Value = value
+                case "pixelformat":
+                    self.camera.Pixelformat.Value = value
+                case "position":
+                    self.position = value
+        except Exception as exception:
+            print("Error", exception)
+
+
+    def eventAutomatedSignal(self, mode, outputLine, value):
+        self.signalMode = {"mode": mode,
+                           "outputLine": outputLine,
+                           "value": value}
 
 class Sensor:
     def __init__(self, name, position):

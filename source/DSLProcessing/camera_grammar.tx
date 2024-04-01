@@ -33,7 +33,7 @@ CustomEvent:
     'Event(' name =  ID ',' '['commandList += EventCommand[','] ']'')'
     ;
 BasicEvent:
-    EventPhoto|EventPhotos|EventWait|EventVideo|EventSaveLocation|EventTimerTrigger|EventSignalTrigger|EventSendSignal|EventSendData|EventReceiveData
+    EventPhoto|EventPhotos|EventWait|EventVideo|EventSaveLocation|EventTimerTrigger|EventSignalTrigger|EventSendSignal|EventSendData|EventReceiveData|EventConfiguration|EventAutomatedSignal
     ;
 EventWait:
     'Event(' name = 'Wait' ',' duration = Expression ')'
@@ -65,8 +65,18 @@ EventSendData:
 EventReceiveData:
     'Event(' name = 'ReceiveData' ',' variable = ID ')'
     ; 
-
-
+EventConfiguration:
+    'Event(' name = 'Configuration' ',' attribute = ConfigAttribute ',' value = Expression ')'
+    ;
+EventAutomatedSignal:
+    'Event(' name = 'AutomatedSignal' ',' mode = SignalMode ',' outputLine = Expression ',' value = Expression')'
+;
+ConfigAttribute:
+    'width'|'height'|'offsetX'|'offsetY'|'exposuretime'|'pixelformat'|'position'
+;
+SignalMode:
+    'flashlight'|'begin'|'end'
+;
 
 //ControlStructure
 ControlStructure:
@@ -79,25 +89,24 @@ WhileLoop:
     'while' '('expression = Expression')' '{'commands += EventCommand'}'
     ;
 Break:
-    'break'
+    expression = 'break' 
     ;
 
 
 //Expression
 Expression:
-    //"Expression"
+//    'Expression'
     Functions|ArithmeticOperation|STRING|BOOL
 ;
 ArithmeticOperation: 
     operand=Operand (operand=Symbol operand=Operand)* 
 ;
 Symbol:
-    '+' | '-' | '*' | '/' 
+    '+' | '-' | '*' | '/' | '<' | '>' | '==' 
 ;
 Operand:
     operand=NUMBER | operand=ID | ('(' operand=ArithmeticOperation ')')
 ;
-
 //Variable
 Variable:
     name = ID '=' value = Expression
@@ -131,8 +140,6 @@ Trigger:
 TCPRole:
     'client'|'server'
 ;
-
-
 
 
 //Comments

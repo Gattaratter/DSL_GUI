@@ -26,10 +26,11 @@ class Camera(Device):
         self.camera = None
         self.savelocation = "."
         self.thread = None
-        self.messageQueueReceive = queue.Queue
-        self.messageQueueSend = queue.Queue
+        self.messageQueueReceive = queue.Queue()
+        self.messageQueueSend = queue.Queue()
         self.eventStop = Event()
         self.eventStop.clear()
+        self.signalMode = None
 
         self.start_thread()
 
@@ -78,6 +79,14 @@ class Camera(Device):
         value = self.messageQueueSend.get()
         return value
 
+    def eventConfiguration(self, attribute, value):
+        print("setConfig", attribute, value)
+
+    def eventAutomatedSignal(self, mode, outputLine, value):
+        print("automatedSignal", mode, outputLine, value)
+        self.signalMode = {"mode": mode,
+                           "outputLine": outputLine,
+                           "value": value}
 
 class Sensor:
     def __init__(self, name, position):

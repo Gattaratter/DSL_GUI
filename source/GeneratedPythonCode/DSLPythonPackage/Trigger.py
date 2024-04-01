@@ -1,5 +1,6 @@
+from PypylonMockup import pylon
 #from pypylon import pylon
-#from pypylon import genicam
+
 import timeit
 
 class Trigger:
