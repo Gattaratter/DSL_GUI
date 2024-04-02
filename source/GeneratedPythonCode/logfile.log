@@ -1,0 +1,4 @@
+2024-03-29 16:55:10,208 - Module:             __main__ - Func:                       <module> - Line:    7 -     INFO: Program wurde gestartet
+2024-03-29 16:55:10,209 - Module:             __main__ - Func:                       <module> - Line:   42 -     INFO: Program wurde beendet
+2024-03-29 16:56:18,680 - Func:                       <module> - Line:    7 -     INFO: Program wurde gestartet
+2024-03-29 16:56:18,680 - Func:                       <module> - Line:   42 -     INFO: Program wurde beendet

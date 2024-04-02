@@ -11,7 +11,8 @@ def PhotoCapture(device):
     count = device.eventReceiveData()
     delay = device.eventReceiveData()
     device.eventWait(duration)
-    device.eventPhotos("sdf", delay)
+    device.eventPhotos(count, delay)
+    device.eventSendData("Done")
 
 devicesList = []
 
@@ -19,7 +20,7 @@ devicesList = []
 
 ip = "192.168.0.0"
 
-KameraOben = Camera("KameraOben", (1,4,0), "<textx:camera_grammar.ArithmeticOperation instance at 0x2283e0fdc40>", PhotoCapture)
+KameraOben = Camera("KameraOben", (1,4,0), "<textx:camera_grammar.ArithmeticOperation instance at 0x27f041e98e0>", PhotoCapture)
 devicesList.append(KameraOben)
 
 Lichtschranke = Sensor("Lichtschranke", (0,3,0))
@@ -39,4 +40,6 @@ sendData(KameraOben, distanz_1/geschwindigkeit)
 sendData(KameraOben, 5)
 
 sendData(KameraOben, 2)
+
+receiveData(KameraOben)
 logger.info('Program wurde beendet')

@@ -1,0 +1,26 @@
+2024-04-03 00:20:59,784 - Func:                           main - Line:   51 -     INFO: Program wurde erfolgreich generiert
+2024-04-03 00:22:53,912 - Func:                           main - Line:   51 -     INFO: Program wurde erfolgreich generiert
+2024-04-03 00:23:12,406 - Func:                           main - Line:   51 -     INFO: Program wurde erfolgreich generiert
+2024-04-03 00:23:46,851 - Func:                           main - Line:   51 -     INFO: Program wurde erfolgreich generiert
+2024-04-03 00:24:14,888 - Func:                           main - Line:   51 -     INFO: Program wurde erfolgreich generiert
+2024-04-03 00:24:50,825 - Func:                           main - Line:   51 -     INFO: Program wurde erfolgreich generiert
+2024-04-03 00:25:09,689 - Func:                           main - Line:   51 -     INFO: Program wurde erfolgreich generiert
+2024-04-03 00:25:19,540 - Func:                           main - Line:   51 -     INFO: Program wurde erfolgreich generiert
+2024-04-03 00:25:31,295 - Func:                           main - Line:   51 -     INFO: Program wurde erfolgreich generiert
+2024-04-03 00:28:56,472 - Func:                           main - Line:   51 -     INFO: Program wurde erfolgreich generiert
+2024-04-03 00:29:09,646 - Func:                           main - Line:   51 -     INFO: Program wurde erfolgreich generiert
+2024-04-03 00:29:39,296 - Func:                           main - Line:   51 -     INFO: Program wurde erfolgreich generiert
+2024-04-03 00:30:24,140 - Func:                           main - Line:   51 -     INFO: Program wurde erfolgreich generiert
+2024-04-03 00:30:45,829 - Func:                           main - Line:   51 -     INFO: Program wurde erfolgreich generiert
+2024-04-03 00:32:08,243 - Func:                           main - Line:   52 -     INFO: Program wurde erfolgreich generiert
+2024-04-03 00:32:33,446 - Func:                           main - Line:   52 -     INFO: Program wurde erfolgreich generiert
+2024-04-03 00:33:26,788 - Func:                           main - Line:   52 -     INFO: Program wurde erfolgreich generiert
+2024-04-03 00:34:42,695 - Func:                           main - Line:   50 -     INFO: Program wurde mit Fehlern generiert:receiveData-transmitterDevice: Kamera is not defined.The device of the Function 'ReceiveData' needs to be defined.
+2024-04-03 00:35:15,831 - Func:                           main - Line:   50 -     INFO: Program wurde mit Fehlern generiert:The device of the Function 'ReceiveData' needs to be defined.
+2024-04-03 00:35:47,355 - Func:                           main - Line:   50 -     INFO: Program wurde mit Fehlern generiert:The device of the Function 'ReceiveData' needs to be defined.
+2024-04-03 00:49:47,259 - Func:                           main - Line:   52 -     INFO: Program wurde erfolgreich generiert
+2024-04-03 00:49:55,737 - Func:                           main - Line:   50 -     INFO: Program wurde mit Fehlern generiert:receiveData-transmitterDevice: KameraObe is not defined.
+2024-04-03 00:51:04,044 - Func:                           main - Line:   50 -     INFO: Program wurde mit Fehlern generiert:The transmitterDevice: KameraObe in the Funktion 'ReceiveData' is not defined.
+2024-04-03 00:51:18,576 - Func:                           main - Line:   52 -     INFO: Program wurde erfolgreich generiert
+2024-04-03 00:52:04,072 Line:   52 -     INFO: Program wurde erfolgreich generiert
+2024-04-03 00:52:17,733 -     INFO: Program wurde erfolgreich generiert

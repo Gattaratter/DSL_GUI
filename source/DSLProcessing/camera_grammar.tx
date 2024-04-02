@@ -120,19 +120,19 @@ SendData:
     'sendData' '(' receiverDevice = ID ',' data = Expression ')'
 ;
 ReceiveData:
-    'receiveData' '('transmitterDevice = ID ')' | 'receiveData' '('')'
+    'receiveData' '('transmitterDevice = ID ')'
 ;
 SendTCP:
-    'sendTCP' '('ipAddress = STRING ',' port = INT ',' role = TCPRole ',' data = Expression ')'
+    'sendTCP' '('ipAddress = Expression ',' port = Expression ',' role = TCPRole ',' data = Expression ')'
 ;
 ReceiveTCP:
-    'receiveTCP' '('ipAddress = STRING ',' port = INT ',' role = TCPRole ')'
+    'receiveTCP' '('ipAddress = Expression ',' port = Expression ',' role = TCPRole ')'
 ;
 WriteFile:
-    'writeFile' '('filename = STRING ',' data = Expression ')'
+    'writeFile' '('filename = Expression ',' data = Expression ')'
 ;
 ReadFile:
-    'readFile' '('filename = STRING ')'
+    'readFile' '('filename = Expression ')'
 ;
 Trigger:
     'trigger' '('device = ID ')'

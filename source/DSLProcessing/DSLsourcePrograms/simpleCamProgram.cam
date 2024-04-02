@@ -4,7 +4,9 @@ Event(PhotoCapture, [
                     Event(ReceiveData, delay),
 
                     Event(Wait, duration), 
-                    Event(Photos, "sdf", delay)
+                    Event(Photos, count, delay),
+                    
+                    Event(SendData, "Done")
                     ])
                   
 #Erstellung der benoetigten Geraete
@@ -22,3 +24,4 @@ distanz_1 = 100
 sendData(KameraOben, distanz_1/geschwindigkeit)
 sendData(KameraOben, 5)
 sendData(KameraOben, 2)
+receiveData(KameraOben)
