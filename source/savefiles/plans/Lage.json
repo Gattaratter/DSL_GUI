@@ -1,0 +1,26 @@
+[
+    {
+        "id": 0,
+        "class": "camera",
+        "positionX": 161,
+        "positionY": 151,
+        "positionZ": 0,
+        "size": 30,
+        "name": "None",
+        "modell": "None",
+        "ipAddress": "0.0.0.0",
+        "DSLEventIdList": "custom.0:asd"
+    },
+    {
+        "id": 1,
+        "class": "camera",
+        "positionX": 431,
+        "positionY": 175,
+        "positionZ": 0,
+        "size": 30,
+        "name": "None",
+        "modell": "None",
+        "ipAddress": "0.0.0.0",
+        "DSLEventIdList": "custom.0:asd"
+    }
+]
