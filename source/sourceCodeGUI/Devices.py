@@ -3,7 +3,7 @@ logging.config.fileConfig('../resources/configurations/logging.conf')
 logger = logging.getLogger(__name__)
 
 class Device:
-    def __init__(self, id, button, positionX, positionY, positionZ=0, size = 30, name="/"):
+    def __init__(self, id, button, positionX, positionY, positionZ=0, size = 30, name="None"):
         self.id = id
         self.button = button
         self.positionX = positionX
@@ -13,7 +13,7 @@ class Device:
         self.name = name
 
 class Camera(Device):
-    def __init__(self, id, button, positionX, positionY, positionZ = 0, size = 30, name="/", modell = "/", ipAddress = "0.0.0.0", DSLEventId = None):
+    def __init__(self, id, button, positionX, positionY, positionZ = 0, size = 30, name="None", modell = "None", ipAddress = "0.0.0.0", DSLEventId = None):
         super().__init__(id, button, positionX, positionY, positionZ, size, name)
         self.modell = modell
         self.ipAddress = ipAddress
@@ -35,11 +35,11 @@ class Camera(Device):
         return dictionary
 
     def create_DSLline(self):
-        line = (f"Camera({self.name}_{self.id}, ({self.positionX},{self.positionY},{self.positionZ}), \"{self.ipAddress}\", {self.DSLEventId})")
+        line = (f"Camera({self.name}, ({self.positionX},{self.positionY},{self.positionZ}), \"{self.ipAddress}\", {self.DSLEventId.split(':')[1]})")
         return line
 
 class Sensor(Device):
-    def __init__(self, id, button, positionX, positionY, positionZ = 0, size = 30, name="/"):
+    def __init__(self, id, button, positionX, positionY, positionZ = 0, size = 30, name="None"):
         super().__init__(id, button, positionX, positionY, positionZ, size, name)
 
     def create_dictionary(self):
@@ -56,11 +56,11 @@ class Sensor(Device):
 
 
     def create_DSLline(self):
-        line = (f"Sensor({self.name}_{self.id}, ({self.positionX},{self.positionY},{self.positionZ}))")
+        line = (f"Sensor({self.name}, ({self.positionX},{self.positionY},{self.positionZ}))")
         return line
 
 class Wire:
-    def __init__(self, id, button, firstDevice, secondDevice, size = 20, name = "/"):
+    def __init__(self, id, button, firstDevice, secondDevice, size = 20, name = "None"):
         self.id = id
         self.button = button
         self.firstDevice = firstDevice
@@ -81,7 +81,7 @@ class Wire:
 
 
     def create_DSLline(self):
-        line = (f"connect({self.firstDevice.name}_{self.firstDevice.id}, {self.secondDevice.name}_{self.secondDevice.id})")
+        line = (f"Connection({self.name},{self.firstDevice.name}, {self.secondDevice.name}, wire, \"Pin1\")")
         return line
 
 

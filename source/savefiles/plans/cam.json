@@ -1,1 +1,0 @@
-[{"id": 0, "class": "camera", "positionX": 117, "positionY": 165, "positionZ": 0, "size": 59, "name": "/", "modell": "/", "ipAddress": "0.0.0.0"}, {"id": 1, "class": "sensor", "positionX": 132, "positionY": 299, "positionZ": 0, "size": 47, "name": "/"}, {"id": 2, "class": "wire", "firstDevice": 1, "secondDevice": 0, "size": 15, "name": "/ - /"}]

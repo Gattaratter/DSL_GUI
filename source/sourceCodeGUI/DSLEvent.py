@@ -105,7 +105,6 @@ class DSLEventCustom(DSLEvent):
 
     def add_basic_DSLEvent(self, DSLEventDictionary):
         try:
-            print(DSLEventDictionary["name"])
             match DSLEventDictionary["name"]:
                 case "DSLEventWait":
                     newDSLEvent = DSLEventWait()
@@ -135,20 +134,28 @@ class DSLEventCustom(DSLEvent):
         }
         return dictionary
 
+
     def create_DSLline(self):
         line = ""
         for DSLEvent in self.DSLEventList:
             if isinstance(DSLEvent, DSLEventCustom):
-                #line += f"Event({DSLEvent.name}), "
-                line += DSLEvent.create_DSLline()+", "
+                if not line:
+                    line += f"Event({DSLEvent.name})"
+                else:
+                    line += f"\n\t\t\t,Event({DSLEvent.name})"
+                #line += DSLEvent.create_DSLline()+", "
             else:
-                line += DSLEvent.create_DSLline()+", "
+                if not line:
+                    line += f"{DSLEvent.create_DSLline()}"
+                else:
+                    line += f",\n\t\t\t{DSLEvent.create_DSLline()}"
         line = f"Event({self.name}, [{line}])"
         return line
 
+
 class DSLEventWait(DSLEvent):
     def __init__(self, duration = 0):
-        self.name = "EventWait"
+        self.name = "Wait"
         self.duration = duration
 
     def read_in_dictionary(self, DSLEventDictionary):
@@ -171,7 +178,7 @@ class DSLEventWait(DSLEvent):
 
 class DSLEventPhoto(DSLEvent):
     def __init__(self, delay = 1, count = 1):
-        self.name = "EventPhoto"
+        self.name = "Photos"
         self.delay = delay
         self.count = count
 
@@ -180,7 +187,7 @@ class DSLEventPhoto(DSLEvent):
         self.count = DSLEventDictionary["count"]
 
     def create_Widget(self, variables):
-        widget = DSLEventWidget.DSLEventPhotoWidget(self, variables)
+        widget = DSLEventWidget.DSLEventPhotosWidget(self, variables)
         return widget
 
     def create_dictionary(self):
@@ -198,7 +205,7 @@ class DSLEventPhoto(DSLEvent):
 
 class DSLEventVideo(DSLEvent):
     def __init__(self, duration = 0):
-        self.name = "EventVideo"
+        self.name = "Video"
         self.duration = duration
 
     def read_in_dictionary(self, DSLEventDictionary):

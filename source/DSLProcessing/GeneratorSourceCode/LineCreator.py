@@ -107,11 +107,11 @@ class LineCreator():
         lines = ""
         newDevice = ""
         if textx_isinstance(device, self.DSL_meta["Camera"]):
-            newDevice = f"Camera(\"{device.name}\", {device.position}, \"{device.ipAddress}\", {device.eventName})"
+            newDevice = f"Camera(\"{device.name}\", {device.position}, {self.lines_expression(device.ipAddress)}, {device.eventName})"
         elif textx_isinstance(device, self.DSL_meta["Sensor"]):
             newDevice = f"Sensor(\"{device.name}\", {device.position})"
         elif textx_isinstance(device, self.DSL_meta["Connection"]):
-            newDevice = f"Connection(\"{device.name}\", {device.firstDevice}, {device.secondDevice}, \"{device.type}\", \"{device.line}\")"
+            newDevice = f"Connection(\"{device.name}\", {device.firstDevice}, {device.secondDevice}, \"{device.type}\", {self.lines_expression(device.line)})"
         lines += f"{device.name} = {newDevice}"
         lines += f"\ndevicesList.append({device.name})"
         return lines
@@ -124,13 +124,13 @@ class LineCreator():
         if textx_isinstance(function, self.DSL_meta["ReceiveData"]):
             lines += f"receiveData({function.transmitterDevice})"
         if textx_isinstance(function, self.DSL_meta["SendTCP"]):
-            lines += f"sendTCP(\"{function.ipAddress}\", {function.port}, \"{function.role}\", {self.lines_expression(function.data)})"
+            lines += f"sendTCP({self.lines_expression(function.ipAddress)}, {self.lines_expression(function.port)}, \"{function.role}\", {self.lines_expression(function.data)})"
         if textx_isinstance(function, self.DSL_meta["ReceiveTCP"]):
-            lines += f"receiveTCP(\"{function.ipAddress}\", {function.port}, \"{function.role}\")"
+            lines += f"receiveTCP({self.lines_expression(function.ipAddress)}, {self.lines_expression(function.port)}, \"{function.role}\")"
         if textx_isinstance(function, self.DSL_meta["WriteFile"]):
-            lines += f"writeFile(\"{function.filename}\", {self.lines_expression(function.data)})"
+            lines += f"writeFile({self.lines_expression(function.filename)}, {self.lines_expression(function.data)})"
         if textx_isinstance(function, self.DSL_meta["ReadFile"]):
-            lines += f"readFile(\"{function.filename}\")"
+            lines += f"readFile({self.lines_expression(function.filename)})"
         return lines
 
 

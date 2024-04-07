@@ -8,10 +8,11 @@ from PyQt6.QtCore import QSize, Qt, pyqtSignal
 import ToolbarWidget
 import ConfigurationWidget
 import Devices
-from source.sourceCodeGUI import SavefileHandler
+import SavefileHandler
 import MyPushButton
 import DSLEventWidget
 import DSLEvent
+import DSLModelInterpreter
 
 
 import logging.config
@@ -78,6 +79,8 @@ class MainWindow(QMainWindow):
         self.configurationWidget = ConfigurationWidget.ConfigurationWidget(self.signalUpdate, self.devicePlan, self.DSLEventWidgetRoot, self.variables)
         self.dockRight.setWidget(self.configurationWidget)
 
+        #connection between ToolbarWidget and ConfigWidget
+        self.configurationWidget.buttonDSLEventSave.clicked.connect(self.toolbarWidget.update_customEventBox)
 
         '''Toolbar for Configwindow'''
         self.toolBarType = QToolBar()
@@ -87,9 +90,13 @@ class MainWindow(QMainWindow):
         actionToolBarWires = QAction("Kabel", self)
         actionToolBarDSLEvent = QAction("Event", self)
         actionToolBarCamera.triggered.connect(lambda: self.configurationWidget.change_Widget(index=0))
+        actionToolBarCamera.triggered.connect(lambda: self.change_view(index=0))
         actionToolBarSensor.triggered.connect(lambda: self.configurationWidget.change_Widget(index=1))
+        actionToolBarSensor.triggered.connect(lambda: self.change_view(index=0))
         actionToolBarWires.triggered.connect(lambda: self.configurationWidget.change_Widget(index=2))
+        actionToolBarWires.triggered.connect(lambda: self.change_view(index=0))
         actionToolBarDSLEvent.triggered.connect(lambda: self.configurationWidget.change_Widget(index=3))
+        actionToolBarDSLEvent.triggered.connect(lambda: self.change_view(index=1))
 
         spacer = QWidget(self)
         spacer.setSizePolicy(QSizePolicy.Policy.Expanding, QSizePolicy.Policy.Expanding)
@@ -106,8 +113,10 @@ class MainWindow(QMainWindow):
         self.actionLoad.triggered.connect(self.load_plan)
         self.actionNew = QAction(QIcon(QPixmap("../resources/icons/new.png")), "Neu")
         self.actionNew.triggered.connect(self.new_plan)
-        self.actionGenerate = QAction(QIcon(QPixmap("../resources/icons/generation.png")), "Generiere DSL-Datei")
-        self.actionGenerate.triggered.connect(self.generate_dslFile)
+        self.actionDSLGenerate = QAction(QIcon(QPixmap("../resources/icons/generation.png")), "DSL-Modell generieren")
+        self.actionDSLGenerate.triggered.connect(self.generate_dslFile)
+        self.actionDSLLoad = QAction(QIcon(QPixmap("../resources/icons/generation.png")), "DSL-Modell laden")
+        self.actionDSLLoad.triggered.connect(self.read_DSLFile)
         self.actionDevicePlan = QAction(QIcon(QPixmap("../resources/icons/view.png")), "Aufbau")
         self.actionDevicePlan.triggered.connect(lambda: self.change_view(index=0))
         self.actionLogic = QAction(QIcon(QPixmap("../resources/icons/view.png")), "Logik")
@@ -119,8 +128,9 @@ class MainWindow(QMainWindow):
         topMenuFile.addAction(self.actionLoad)
         topMenuFile.addAction(self.actionNew)
 
-        topMenuGeneration = self.topMenubar.addMenu("Generation")
-        topMenuGeneration.addAction(self.actionGenerate)
+        topMenuDSLModell = self.topMenubar.addMenu("DSL-Modell")
+        topMenuDSLModell.addAction(self.actionDSLGenerate)
+        topMenuDSLModell.addAction(self.actionDSLLoad)
 
         topMenuView = self.topMenubar.addMenu("Ansicht")
         topMenuView.addAction(self.actionDevicePlan)
@@ -265,7 +275,7 @@ class MainWindow(QMainWindow):
                     newWire,
                     self.wireFirstDevice,
                     self.wireSecondDevice,
-                    name = self.wireFirstDevice.name + " - " + self.wireSecondDevice.name,
+                    name = self.wireFirstDevice.name + "_" + self.wireSecondDevice.name,
                     )
                 newWire.clicked.connect(lambda: self.delete_device(planElement=planElement))
                 newWire.clicked.connect(lambda: self.configurationWidget.show_planElement_configuration(planElement=planElement))
@@ -322,7 +332,7 @@ class MainWindow(QMainWindow):
         logger.debug("success")
 
 
-    '''for some reason it is needed to add every Device element on its own, otherwise the lambda func takes only the latest planElement???'''
+    '''for some reason it is needed to add every Device element on its own, otherwise the lambda func takes only the latest planElement'''
     def add_devicePlanListItem(self, element):
         if element["class"] == "camera":
             newCamera = MyPushButton.MyPushButton(self.variables, self.labelMain)
@@ -338,6 +348,7 @@ class MainWindow(QMainWindow):
                 element["name"],
                 element["modell"],
                 element["ipAddress"],
+                element["DSLEventIdList"],
             )
             newCamera.clicked.connect(lambda: self.delete_device(planElement=planElement))
             newCamera.clicked.connect(lambda: self.select_Device(planElement=planElement))
@@ -390,11 +401,15 @@ class MainWindow(QMainWindow):
 
     '''Clears the current devicePlan completly'''
     def new_plan(self):
-        for index in range(len(self.devicePlan.planList)):
-            self.devicePlan.planList[0].button.hide()
-            self.devicePlan.planList[0].button.destroy()
-            self.devicePlan.planList.pop(0)
-        self.update_Map()
+        if self.layoutMain.currentIndex() == 0:
+            for index in range(len(self.devicePlan.planList)):
+                self.devicePlan.planList[0].button.hide()
+                self.devicePlan.planList[0].button.destroy()
+                self.devicePlan.planList.pop(0)
+            self.update_Map()
+        elif self.layoutMain.currentIndex() == 1:
+            self.DSLEventWidgetRoot.clear()
+
         logger.debug("success")
 
 
@@ -410,7 +425,30 @@ class MainWindow(QMainWindow):
         logger.debug("success")
 
 
+    '''Loads a .cam file an displays the DSL-Model'''
+    def read_DSLFile(self):
+        try:
+            path = QFileDialog.getOpenFileName(self, "Speicherort wählen", "../savefiles/DSL", "All Files (*)",)
+        except Exception as e:
+            logger.debug(f"Fehler bei Dateiauswahl: {e}")
+        if path[0]:
+            try:
+                DSLModellreader = DSLModelInterpreter.DSLModelInterpreter(path[0])
+                DSLModellreader.load_DSLModel()
+
+                self.new_plan()
+                for element in DSLModellreader.dictionaryList:
+                    self.add_devicePlanListItem(element)
+
+                self.configurationWidget.clear_configuration()
+                self.update_Map()
+            except Exception as e:
+                logger.debug(f"Fehler beim Interpretieren des DSL-Modells: {e}")
+        logger.debug("success")
+
     def change_view(self, index):
+        if index == 1:
+            self.configurationWidget.change_Widget(index=3)
         self.layoutMain.setCurrentIndex(index)
         self.toolbarWidget.change_view(index)
         logger.debug("success")

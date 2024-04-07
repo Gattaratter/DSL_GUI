@@ -10,7 +10,8 @@ logging.basicConfig(filename='logfile.log', level=logging.DEBUG, format='%(ascti
 def main():
     # Laden der Grammatik inklusive dem zu nutzenden DSL-Modell
     DSL_meta = metamodel_from_file("../camera_grammar.tx")
-    DSLPath = "../DSLsourcePrograms/simpleCamProgram.cam"
+    #DSLPath = "../DSLsourcePrograms/a.cam"
+    DSLPath = "../DSLsourcePrograms/modell.cam"
     DSLProgramm = DSL_meta.model_from_file(DSLPath)
     PythonPath = "../../GeneratedPythonCode/generatedCode.py"
 
@@ -26,11 +27,11 @@ def main():
 
         # Definition aller Eventfunktionen zuerst
         for command in DSLProgramm.commands:
-            print("Main:", type(command))
+            #print("Main:", type(command))
             if textx_isinstance(command, DSL_meta["CustomEvent"]):
                 extraSemanticValidator = SemanticValidator.SemanticValidator(DSL_meta)
                 extraSemanticValidator.add_command(command)
-                semanticValidator.customEventList.append(command)
+                semanticValidator.rule_unique_eventNames(command)
                 if extraSemanticValidator.returnMessage:
                     semanticValidator.returnMessage += extraSemanticValidator.returnMessage
                 savefile.write(lineCreator.lines_customEvent(command))

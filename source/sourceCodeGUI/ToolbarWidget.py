@@ -1,7 +1,10 @@
-from PyQt6.QtWidgets import QApplication, QSizePolicy, QMainWindow, QTextEdit, QVBoxLayout, QStackedLayout, QMessageBox, QToolBar, QLabel, QDockWidget, QWidget, QFormLayout, QLineEdit, QPushButton
+from PyQt6.QtWidgets import QApplication, QSizePolicy, QVBoxLayout, QComboBox, QMainWindow, QTextEdit, QVBoxLayout, QStackedLayout, QMessageBox, QToolBar, QLabel, QDockWidget, QWidget, QFormLayout, QLineEdit, QPushButton
 from PyQt6.QtGui import QIcon, QAction, QPixmap, QCursor
 from PyQt6.QtCore import QSize, Qt
 
+import logging.config
+logging.config.fileConfig('../resources/configurations/logging.conf')
+logger = logging.getLogger(__name__)
 
 class ToolbarWidget(QWidget):
     def __init__(self, labelMain, DSLEventWidgetRoot, variables):
@@ -10,8 +13,8 @@ class ToolbarWidget(QWidget):
         self.DSLEventWidgetRoot = DSLEventWidgetRoot
         self.variables = variables
 
-        self.setMinimumWidth(130)
-        self.setMaximumWidth(130)
+        self.setMinimumWidth(170)
+        self.setMaximumWidth(170)
 
         '''Buttons for ToolsDevices'''
         self.buttonCamera = QPushButton()
@@ -54,6 +57,16 @@ class ToolbarWidget(QWidget):
         self.buttonEventVideo.setIcon(QIcon(QPixmap("../resources/icons/video.png")))
         self.buttonEventVideo.setIconSize(QSize(50, 50))
 
+        self.buttonEventCustom = QPushButton()
+        self.buttonEventCustom.setSizePolicy(QSizePolicy.Policy.Expanding, QSizePolicy.Policy.Expanding)
+        self.buttonEventCustom.setIcon(QIcon(QPixmap("../resources/icons/customEvent.png")))
+        self.buttonEventCustom.setIconSize(QSize(50, 50))
+        self.layoutMain = QVBoxLayout()
+        self.customEventComboBox = QComboBox()
+        self.layoutMain.addWidget(self.customEventComboBox, alignment=Qt.AlignmentFlag.AlignTop)
+        self.buttonEventCustom.setLayout(self.layoutMain)
+        self.buttonEventCustom.clicked.connect(self.add_customEvent)
+
         self.buttonEventDelete = QPushButton()
         self.buttonEventDelete.setSizePolicy(QSizePolicy.Policy.Expanding, QSizePolicy.Policy.Expanding)
         self.buttonEventDelete.setIcon(QIcon(QPixmap("../resources/icons/delete.png")))
@@ -83,6 +96,7 @@ class ToolbarWidget(QWidget):
         self.layoutToolsEvents.addWidget(self.buttonEventWait)
         self.layoutToolsEvents.addWidget(self.buttonEventPhoto)
         self.layoutToolsEvents.addWidget(self.buttonEventVideo)
+        self.layoutToolsEvents.addWidget(self.buttonEventCustom)
         self.layoutToolsEvents.addWidget(self.buttonEventDelete)
         self.widgetToolsEvents = QWidget()
         self.widgetToolsEvents.setLayout(self.layoutToolsEvents)
@@ -149,3 +163,20 @@ class ToolbarWidget(QWidget):
 
     def change_view(self, index):
         self.layoutMain.setCurrentIndex(index)
+
+    def update_customEventBox(self):
+        try:
+            for key in self.DSLEventWidgetRoot.DSLEventListHandler.DSLEventDictionary["custom"].keys():
+                self.customEventComboBox.addItem("custom"+"."+key+":"+self.DSLEventWidgetRoot.DSLEventListHandler.DSLEventDictionary["custom"][key]["name"])
+        except Exception as exception:
+            logger.debug("Failed to update customEventbox:", exception)
+
+    def add_customEvent(self):
+        try:
+            idText = self.customEventComboBox.currentText()
+            texts = idText.split(':')[0].split('.')
+            self.selectedDSLEvent = (texts[0], texts[1])
+
+            self.DSLEventWidgetRoot.add_DSLEvent_by_section_id(texts[0], texts[1])
+        except Exception as exception:
+            logger.debug("Failed to set customEvent from customEventbox", exception)

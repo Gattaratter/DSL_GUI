@@ -23,34 +23,17 @@ class SemanticValidator():
         print("addCommand", type(command))
 
         if textx_isinstance(command, self.DSL_meta["Device"]):
+            self.returnMessage += self.typecheck_parameter_devices(command)
             self.deviceList.append(command)
-            self.returnMessage += self.rule_unique_deviceNames()
-            self.returnMessage += self.rule_unique_positions()
-            self.returnMessage += self.rule_deviceEvent_defined()
-
-        if textx_isinstance(command, self.DSL_meta["Camera"]):
-            self.cameraList.append(command)
-            self.connectableDeviceList.append(command)
-
-            self.returnMessage += self.typecheck_parameter_camera(command)
-
-        if textx_isinstance(command, self.DSL_meta["Sensor"]):
-            self.connectableDeviceList.append(command)
-
-        if textx_isinstance(command, self.DSL_meta["Connection"]):
-            self.connectionList.append(command)
-            self.returnMessage += self.rule_connection_device()
 
         if textx_isinstance(command, self.DSL_meta["BasicEvent"]):
-            self.basicEventList.append(command)
-
             self.returnMessage += self.typecheck_parameter_basicEvent(command)
+            self.basicEventList.append(command)
 
         if textx_isinstance(command, self.DSL_meta["CustomEvent"]):
             self.customEventList.append(command)
-            self.returnMessage += self.rule_unique_eventNames()
-            for evetnCommand in command.commandList:
-                self.add_command(evetnCommand)
+            for eventCommand in command.commandList:
+                self.add_command(eventCommand)
 
         if textx_isinstance(command, self.DSL_meta["Functions"]):
             self.returnMessage += self.typecheck_parameter_functions(command)
@@ -59,49 +42,15 @@ class SemanticValidator():
             self.variableList.append(command)
             self.variableNameList.append(command.name)
 
-
-    # jede position darf nur einmal genutzt werden
-    def rule_unique_positions(self):
-        errorCode = ""
-        positions = []
-        for device in self.deviceList:
-            if not textx_isinstance(device, self.DSL_meta["Connection"]):
-                if device.position in positions:
-                    errorCode += f"device-position: {device.position} is not unique."
-                else:
-                    positions.append(device.position)
-        return errorCode
-
-    # jeder name von Devices muss einzigartig sein
-    def rule_unique_deviceNames(self):
-        errorCode = ""
-        names = []
-        for device in self.deviceList:
-            if device.name in names:
-                errorCode += f"device-name: {device.name} is not unique."
-            else:
-                names.append(device.name)
-        return errorCode
-
-    # jeder name von Events muss einzigartig sein
-    def rule_unique_eventNames(self):
-        errorCode = ""
-        names = []
-        for event in (self.basicEventList + self.customEventList):
-            if event.name in names:
-                errorCode += f"event-name: {event.name} is not unique."
-            else:
-                names.append(event.name)
-        return errorCode
-
-    # Das von einer Kamera genutzte Event muss definiert sein
-    def rule_deviceEvent_defined(self):
+    # Methode, um den Namen ein Benutzerdefiniertes Event zu registrieren, das durch eine andere Instanz ausgewertet wird
+    def rule_unique_eventNames(self, event):
         errorCode = ""
         names = list(map(lambda event: event.name, self.customEventList))
-        for camera in self.cameraList:
-            if not camera.eventName in names:
-                errorCode += f"camera-customEvent: {camera.eventName} is not defined."
-        return errorCode
+        if event.name in names:
+            errorCode += f"The name of the 'Event': {event.name} is not unique."
+        self.returnMessage += errorCode
+        self.customEventList.append(event)
+
 
     # Das Gerät, von dem Daten empfangen werden sollen muss definiert sein
     def rule_receiveData_device(self):
@@ -112,26 +61,80 @@ class SemanticValidator():
                 errorCode += f"The transmitterDevice: {receiveData.transmitterDevice} in the Funktion 'ReceiveData' is not defined."
         return errorCode
 
-    # Die von einer Connection verbundenen Geräte müssen definiert und verschieden sein.
-    def rule_connection_device(self):
-        errorCode = ""
-        names = list(map(lambda device: device.name, self.connectableDeviceList))
-        for connection in self.connectionList:
-            if connection.firstDevice not in names:
-                errorCode += f"Connection-firstDevice: {connection.firstDevice} is not defined."
-            if connection.secondDevice not in names:
-                errorCode += f"Connection-secondDevice: {connection.secondDevice} is not defined."
-            if connection.firstDevice == connection.secondDevice:
-                errorCode += f"Connection, connected devices cant't be the same: {connection.firstDevice}."
-        return errorCode
 
-    # Check der Parameter, die noch nicht durch die Syntax sichergestellt werden
-    def typecheck_parameter_camera(self, camera):
+    def typecheck_parameter_devices(self, device):
+        def typecheck_parameter_camera(device):
+            errorCode = ""
+            self.cameraList.append(device)
+            self.connectableDeviceList.append(device)
+            errorCode += rule_unique_positions(device)
+            errorCode += rule_deviceEvent_defined(device)
+            if not self.typecheck_expression(device.ipAddress, (str)):
+                errorCode += f"The ipAddress of the 'Device': {device.name} needs to be a String."
+            return errorCode
+
+        def typecheck_parameter_Sensor(device):
+            errorCode = ""
+            self.connectableDeviceList.append(device)
+            errorCode += rule_unique_positions(device)
+            return errorCode
+
+        def typecheck_parameter_Connection(device):
+            errorCode = ""
+            if not self.typecheck_expression(device.line, (str)):
+                print(type(device.line), device)
+                errorCode += f"The line of the 'Device': {device.name} needs to be a String."
+
+            # Die von einer Connection verbundenen Geräte müssen definiert und verschieden sein.
+            names = list(map(lambda existingDevice: existingDevice.name, self.connectableDeviceList))
+            if device.firstDevice not in names:
+                errorCode += f"Connection-firstDevice: {device.firstDevice} is not defined."
+            if device.secondDevice not in names:
+                errorCode += f"Connection-secondDevice: {device.secondDevice} is not defined."
+            if device.firstDevice == device.secondDevice:
+                errorCode += f"Connection, connected devices cant't be the same: {device.firstDevice}."
+
+            return errorCode
+
+        # Die Position von Geräten muss einzigartig sein
+        def rule_unique_positions(device):
+            errorCode = ""
+            positions = []
+            for existingDevice in self.deviceList:
+                if not textx_isinstance(device, self.DSL_meta["Connection"]):
+                    positions.append(existingDevice.position)
+            if device.position in positions:
+                errorCode += f"The postion: {device.position} of the 'Device': {device.name} is not unique."
+            return errorCode
+
+        # Der Name von Geräten muss einzigartig sein
+        def rule_unique_deviceNames(device):
+            errorCode = ""
+            names = []
+            for existingDevice in self.deviceList:
+                names.append(existingDevice.name)
+            if device.name in names:
+                errorCode += f"The name of the 'Device': {device.name} is not unique."
+            return errorCode
+
+        # Das von Geräten genutzte Event muss definiert sein
+        def rule_deviceEvent_defined(device):
+            errorCode = ""
+            names = list(map(lambda event: event.name, self.customEventList))
+            if not device.eventName in names:
+               errorCode += f"The referenced 'Event': {device.eventName} is not defined."
+            return errorCode
+
         errorCode = ""
-        if not isinstance(camera.ipAddress, str):
-            if textx_isinstance(camera.ipAddress, self.DSL_meta["ArithmeticOperation"]) and camera.ipAddress.operand[0].operand not in self.variableNameList:
-                print(type(camera.ipAddress.operand[0].operand))
-                errorCode += f"The Ip-Address of the camera {camera.name} needs to be a string."
+        errorCode += rule_unique_deviceNames(device)
+
+        if textx_isinstance(device, self.DSL_meta["Camera"]):
+            errorCode += typecheck_parameter_camera(device)
+        elif textx_isinstance(device, self.DSL_meta["Sensor"]):
+            errorCode += typecheck_parameter_Sensor(device)
+        elif textx_isinstance(device, self.DSL_meta["Connection"]):
+            errorCode += typecheck_parameter_Connection(device)
+
         return errorCode
 
 
@@ -209,31 +212,33 @@ class SemanticValidator():
                 errorCode += f"The value of the Event 'AutomatedSignal' needs to be Boolean, like True/False."
             return errorCode
 
+        errorCode = ""
 
+        # Check für spezifisches Event
         if textx_isinstance(event, self.DSL_meta["EventWait"]):
-            return typecheck_parameter_eventWait(event)
+            errorCode += typecheck_parameter_eventWait(event)
         elif textx_isinstance(event, self.DSL_meta["EventPhotos"]):
-            return typecheck_parameter_eventPhotos(event)
+            errorCode += typecheck_parameter_eventPhotos(event)
         elif textx_isinstance(event, self.DSL_meta["EventVideo"]):
-            return typecheck_parameter_eventVideo(event)
+            errorCode += typecheck_parameter_eventVideo(event)
         elif textx_isinstance(event, self.DSL_meta["EventSaveLocation"]):
-            return typecheck_parameter_eventSaveLocation(event)
+            errorCode += typecheck_parameter_eventSaveLocation(event)
         elif textx_isinstance(event, self.DSL_meta["EventTimerTrigger"]):
-            return typecheck_parameter_eventTimerTrigger(event)
+            errorCode += typecheck_parameter_eventTimerTrigger(event)
         elif textx_isinstance(event, self.DSL_meta["EventSignalTrigger"]):
-            return typecheck_parameter_eventSignalTrigger(event)
+            errorCode += typecheck_parameter_eventSignalTrigger(event)
         elif textx_isinstance(event, self.DSL_meta["EventSendSignal"]):
-            return typecheck_parameter_eventSendSignal(event)
+            errorCode += typecheck_parameter_eventSendSignal(event)
         elif textx_isinstance(event, self.DSL_meta["EventSendData"]):
-            return typecheck_parameter_eventSendData(event)
+            errorCode += typecheck_parameter_eventSendData(event)
         elif textx_isinstance(event, self.DSL_meta["EventReceiveData"]):
-            return typecheck_parameter_eventReceiveData(event)
+            errorCode += typecheck_parameter_eventReceiveData(event)
         elif textx_isinstance(event, self.DSL_meta["EventConfiguration"]):
-            return typecheck_parameter_eventConfiguration(event)
+            errorCode += typecheck_parameter_eventConfiguration(event)
         elif textx_isinstance(event, self.DSL_meta["AutomatedSignal"]):
-            return typecheck_parameter_eventAutomatedSignal(event)
-        else:
-            return ""
+            errorCode += typecheck_parameter_eventAutomatedSignal(event)
+
+        return errorCode
 
 
     def typecheck_parameter_functions(self, function):
@@ -298,10 +303,10 @@ class SemanticValidator():
             return ""
 
     def typecheck_expression(self, expression, demandedTypes):
-        errorCode = ""
         if textx_isinstance(expression, self.DSL_meta["ArithmeticOperation"]):
             for operand in expression.operand:
                 if not textx_isinstance(operand, self.DSL_meta["Symbol"]) and not self.typecheck_expression(operand, demandedTypes):
+                    print("hierr", expression.operand[0].operand)
                     return False
             return True
         elif textx_isinstance(expression, self.DSL_meta["Functions"]):
@@ -312,5 +317,10 @@ class SemanticValidator():
                 return True
             elif expression.operand in self.variableNameList:
                 return True
+            elif isinstance(True, demandedTypes) and expression.operand in ["True", "False"]:
+                return True
+        # Fall Parameter expliziter String ist, wird dieser noch nicht als Operand gewertet 
+        elif isinstance(expression, demandedTypes):
+            return True
         else:
             return False

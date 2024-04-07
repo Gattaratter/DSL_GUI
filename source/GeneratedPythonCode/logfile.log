@@ -2,3 +2,7 @@
 2024-03-29 16:55:10,209 - Module:             __main__ - Func:                       <module> - Line:   42 -     INFO: Program wurde beendet
 2024-03-29 16:56:18,680 - Func:                       <module> - Line:    7 -     INFO: Program wurde gestartet
 2024-03-29 16:56:18,680 - Func:                       <module> - Line:   42 -     INFO: Program wurde beendet
+2024-04-03 18:24:37,459 - Func:                       <module> - Line:    8 -     INFO: Program wurde gestartet
+2024-04-03 18:28:11,068 - Func:                       <module> - Line:    8 -     INFO: Program wurde gestartet
+2024-04-03 18:38:34,419 - Func:                       <module> - Line:    8 -     INFO: Program wurde gestartet
+2024-04-03 18:38:54,422 - Func:                       <module> - Line:   49 -     INFO: Program wurde beendet

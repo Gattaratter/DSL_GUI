@@ -20,12 +20,24 @@ class DSLEventRootWidget(QWidget):
         self.layoutMain.setContentsMargins(0, 0, 0, 0)
         self.setLayout(self.layoutMain)
 
-
-    '''Reads in the user data from the GUI'''
+    '''Reads in the user data from the GUI and reorder the Events according to the Widgets'''
     def readout_widgets(self):
         for DSLEventWidget in self.DSLEventWidgetList:
             logger.debug(f"Try to readout {DSLEventWidget}")
             DSLEventWidget.readout_widget()
+
+        currentWidgetListOrder = []
+        for index in range(self.layoutMain.count()):
+            currentWidgetListOrder.append(self.layoutMain.itemAt(index).widget())
+
+        newOrder = []
+        for indexEvent in range(len(self.DSLEventListHandler.DSLEventList)):
+            for indexWidget in range(len(currentWidgetListOrder)):
+                if self.DSLEventListHandler.DSLEventList[indexEvent] == currentWidgetListOrder[indexWidget].DSLEvent:
+                    #print("neworder","Eventindex:", indexEvent, "WidgetIndex:", indexWidget)
+                    newOrder.append(indexWidget)
+
+        self.DSLEventListHandler.DSLEventList = [self.DSLEventListHandler.DSLEventList[index] for index in newOrder]
 
     '''Adds a widget to the root layout'''
     def add_DSLEventWidget(self, DSLEventWidget):
@@ -43,6 +55,7 @@ class DSLEventRootWidget(QWidget):
                 newDSLEventCustom = DSLEvent.DSLEventCustom()
                 newDSLEventCustom.read_in_dictionary(self.DSLEventListHandler.DSLEventDictionary[section][id])
                 newDSLEventCustomWidget = newDSLEventCustom.create_Widget(self.variables)
+                newDSLEventCustomWidget.clicked.connect(lambda: self.delete_DSLEvent(DSLEventWidget=newDSLEventCustomWidget))
                 self.DSLEventListHandler.DSLEventList.append(newDSLEventCustom)
                 self.add_DSLEventWidget(newDSLEventCustomWidget)
 
@@ -88,6 +101,8 @@ class DSLEventRootWidget(QWidget):
     def delete_DSLEvent(self, DSLEventWidget):
         try:
             if self.variables["selected_tool_logic"] == "delete":
+                self.DSLEventListHandler.DSLEventList.remove(DSLEventWidget.DSLEvent)
+
                 self.DSLEventWidgetList.remove(DSLEventWidget)
                 DSLEventWidget.setParent(None)
                 self.layoutMain.removeWidget(DSLEventWidget)
@@ -121,6 +136,7 @@ class DSLEventRootWidget(QWidget):
         else:
             if index > 0:
                 index += 1
+
         self.layoutMain.insertWidget(index, dropedWidget)
 
 
@@ -134,21 +150,23 @@ class DSLEventWidget(QPushButton):
 
     def mouseMoveEvent(self, e):
         if e.buttons() == Qt.MouseButton.LeftButton and self.variables["selected_tool_logic"] == None:
-            drag = QDrag(self)
-            mime = QMimeData()
-            drag.setMimeData(mime)
+            if isinstance(self.parent(), DSLEventRootWidget):
 
-            pixmap = QPixmap(self.size())
-            self.render(pixmap)
-            drag.setPixmap(pixmap)
-            drag.exec(Qt.DropAction.MoveAction)
+                drag = QDrag(self)
+                mime = QMimeData()
+                drag.setMimeData(mime)
+
+                pixmap = QPixmap(self.size())
+                self.render(pixmap)
+                drag.setPixmap(pixmap)
+                drag.exec(Qt.DropAction.MoveAction)
 
 
 
 class DSLEventCustomWidget(DSLEventWidget):
     def __init__(self, DSLEventCustom, variables, *args, **kwargs):
         super().__init__(variables, *args, **kwargs)
-        self.DSLEventCustom = DSLEventCustom
+        self.DSLEvent = DSLEventCustom
         self.DSLEventWidgetList = []
 
         self.layoutMain = QVBoxLayout()
@@ -162,6 +180,16 @@ class DSLEventCustomWidget(DSLEventWidget):
     def readout_widget(self):
         for DSLEventWidget in self.DSLEventWidgetList:
             DSLEventWidget.readout_widget()
+
+    def delete_DSLEvent(self, DSLEventWidget):
+        try:
+            if self.variables["selected_tool_logic"] == "delete":
+                DSLEventWidget.setParent(None)
+                self.DSLEventWidgetList.remove(DSLEventWidget)
+                self.layoutMain.removeWidget(DSLEventWidget)
+        except Exception as exception:
+            logger.debug("Failed to delete DSLWidget:", exception)
+
 
 
 class DSLEventWaitWidget(DSLEventWidget):
@@ -193,7 +221,7 @@ class DSLEventWaitWidget(DSLEventWidget):
             logger.debug(f"Failed to readout: {exception}")
 
 
-class DSLEventPhotoWidget(DSLEventWidget):
+class DSLEventPhotosWidget(DSLEventWidget):
     def __init__(self, DSLEventPhoto, variables, *args, **kwargs):
         super().__init__(variables, *args, **kwargs)
 

@@ -24,3 +24,42 @@
 2024-04-03 00:51:18,576 - Func:                           main - Line:   52 -     INFO: Program wurde erfolgreich generiert
 2024-04-03 00:52:04,072 Line:   52 -     INFO: Program wurde erfolgreich generiert
 2024-04-03 00:52:17,733 -     INFO: Program wurde erfolgreich generiert
+2024-04-03 01:23:17,006 -     INFO: Program wurde mit Fehlern generiert:The inputLine of the Event 'SignalTrigger' needs to be a string, like 'Pin2'The value of the Event 'SignalTrigger' needs to be Boolean, like True/False.The inputLine of the Event 'SignalTrigger' needs to be a string, like 'Pin2'The value of the Event 'SignalTrigger' needs to be Boolean, like True/False.
+2024-04-03 14:12:41,267 -     INFO: Program wurde mit Fehlern generiert:The postion: (1,4,0) of the 'Device': KameraOben is not unique.The name of the 'Device': KameraOben is not unique.The postion: (0,3,0) of the 'Device': Lichtschranke is not unique.The name of the 'Device': Lichtschranke is not unique.The name of the 'Device': Kabel_1 is not unique.The line of the 'Device': Kabel_1 needs to be a String.
+2024-04-03 14:12:52,971 -     INFO: Program wurde mit Fehlern generiert:The postion: (1,4,0) of the 'Device': KameraOben is not unique.The name of the 'Device': KameraOben is not unique.The postion: (0,3,0) of the 'Device': Lichtschranke is not unique.The name of the 'Device': Lichtschranke is not unique.The name of the 'Device': Kabel_1 is not unique.The line of the 'Device': Kabel_1 needs to be a String.
+2024-04-03 14:13:07,865 -     INFO: Program wurde mit Fehlern generiert:The postion: (1,4,0) of the 'Device': KameraOben is not unique.The name of the 'Device': KameraOben is not unique.The referenced 'Event': PhotoCaptures is not defined.The postion: (0,3,0) of the 'Device': Lichtschranke is not unique.The name of the 'Device': Lichtschranke is not unique.The name of the 'Device': Kabel_1 is not unique.The line of the 'Device': Kabel_1 needs to be a String.
+2024-04-03 14:18:23,038 -     INFO: Program wurde mit Fehlern generiert:The line of the 'Device': Kabel_1 needs to be a String.
+2024-04-03 14:19:30,504 -     INFO: Program wurde mit Fehlern generiert:The line of the 'Device': Kabel_1 needs to be a String.
+2024-04-03 14:20:18,714 -     INFO: Program wurde mit Fehlern generiert:The line of the 'Device': Kabel_1 needs to be a String.
+2024-04-03 14:21:51,448 -     INFO: Program wurde erfolgreich generiert
+2024-04-03 14:23:09,309 -     INFO: Program wurde erfolgreich generiert
+2024-04-03 18:22:19,083 -     INFO: Program wurde erfolgreich generiert
+2024-04-03 18:23:13,314 -     INFO: Program wurde erfolgreich generiert
+2024-04-03 18:23:55,984 -     INFO: Program wurde mit Fehlern generiert:The name of the 'Event': PhotoCapture is not unique.
+2024-04-03 18:24:13,506 -     INFO: Program wurde erfolgreich generiert
+2024-04-03 18:24:26,226 -     INFO: Program wurde erfolgreich generiert
+2024-04-03 18:28:49,652 -     INFO: Program wurde erfolgreich generiert
+2024-04-03 18:29:01,231 -     INFO: Program wurde erfolgreich generiert
+2024-04-03 18:29:15,580 -     INFO: Program wurde erfolgreich generiert
+2024-04-03 18:31:50,332 -     INFO: Program wurde erfolgreich generiert
+2024-04-03 18:34:01,338 -     INFO: Program wurde erfolgreich generiert
+2024-04-03 18:35:21,024 -     INFO: Program wurde erfolgreich generiert
+2024-04-03 18:38:14,817 -     INFO: Program wurde erfolgreich generiert
+2024-04-03 19:05:16,283 -     INFO: Program wurde erfolgreich generiert
+2024-04-07 14:59:58,024 -     INFO: Program wurde erfolgreich generiert
+2024-04-07 15:00:49,341 -     INFO: Program wurde erfolgreich generiert
+2024-04-07 16:16:25,008 -     INFO: Program wurde mit Fehlern generiert:The value of the Event 'SignalTrigger' needs to be Boolean, like True/False.The value of the Event 'SignalTrigger' needs to be Boolean, like True/False.
+2024-04-07 16:20:17,739 -     INFO: Program wurde mit Fehlern generiert:The value of the Event 'SignalTrigger' needs to be Boolean, like True/False.The value of the Event 'SignalTrigger' needs to be Boolean, like True/False.
+2024-04-07 16:20:30,364 -     INFO: Program wurde mit Fehlern generiert:The value of the Event 'SignalTrigger' needs to be Boolean, like True/False.The value of the Event 'SignalTrigger' needs to be Boolean, like True/False.
+2024-04-07 16:20:47,854 -     INFO: Program wurde mit Fehlern generiert:The value of the Event 'SignalTrigger' needs to be Boolean, like True/False.The value of the Event 'SignalTrigger' needs to be Boolean, like True/False.
+2024-04-07 16:22:35,983 -     INFO: Program wurde mit Fehlern generiert:The value of the Event 'SignalTrigger' needs to be Boolean, like True/False.The value of the Event 'SignalTrigger' needs to be Boolean, like True/False.
+2024-04-07 16:23:00,970 -     INFO: Program wurde mit Fehlern generiert:The value of the Event 'SignalTrigger' needs to be Boolean, like True/False.The value of the Event 'SignalTrigger' needs to be Boolean, like True/False.
+2024-04-07 16:23:18,840 -     INFO: Program wurde mit Fehlern generiert:The value of the Event 'SignalTrigger' needs to be Boolean, like True/False.The value of the Event 'SignalTrigger' needs to be Boolean, like True/False.
+2024-04-07 16:23:35,855 -     INFO: Program wurde mit Fehlern generiert:The value of the Event 'SignalTrigger' needs to be Boolean, like True/False.The value of the Event 'SignalTrigger' needs to be Boolean, like True/False.
+2024-04-07 16:43:12,597 -     INFO: Program wurde mit Fehlern generiert:The value of the Event 'SignalTrigger' needs to be Boolean, like True/False.The value of the Event 'SignalTrigger' needs to be Boolean, like True/False.
+2024-04-07 16:44:18,398 -     INFO: Program wurde erfolgreich generiert
+2024-04-07 16:45:06,181 -     INFO: Program wurde erfolgreich generiert
+2024-04-07 16:45:25,357 -     INFO: Program wurde erfolgreich generiert
+2024-04-07 16:45:42,730 -     INFO: Program wurde erfolgreich generiert
+2024-04-07 16:46:27,909 -     INFO: Program wurde erfolgreich generiert
+2024-04-07 16:46:37,086 -     INFO: Program wurde erfolgreich generiert

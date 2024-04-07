@@ -252,7 +252,6 @@ class ConfigurationWidget(QWidget):
         self.layoutMain.setCurrentIndex(0)
         self.setLayout(self.layoutMain)
 
-        
 
 
     '''This method changes the displayed Widget in the ConfigurationDockWidget'''
@@ -297,10 +296,10 @@ class ConfigurationWidget(QWidget):
             self.lineEditWireSecondDevice.clear()
             for element in self.devicePlan.planList:
                 if isinstance(element, Devices.Device):
-                    self.lineEditWireFirstDevice.addItem(str(element.id) + ": " + element.name)
-                    self.lineEditWireSecondDevice.addItem(str(element.id) + ": " + element.name)
-            self.lineEditWireFirstDevice.setCurrentText(str(self.selectedPlanElement.firstDevice.id)+": "+self.selectedPlanElement.firstDevice.name)
-            self.lineEditWireSecondDevice.setCurrentText(str(self.selectedPlanElement.secondDevice.id)+": "+self.selectedPlanElement.secondDevice.name)
+                    self.lineEditWireFirstDevice.addItem(str(element.id) + ":" + element.name)
+                    self.lineEditWireSecondDevice.addItem(str(element.id) + ":" + element.name)
+            self.lineEditWireFirstDevice.setCurrentText(str(self.selectedPlanElement.firstDevice.id)+":"+self.selectedPlanElement.firstDevice.name)
+            self.lineEditWireSecondDevice.setCurrentText(str(self.selectedPlanElement.secondDevice.id)+":"+self.selectedPlanElement.secondDevice.name)
         else:
             logger.debug("not reconized")
 
@@ -314,19 +313,19 @@ class ConfigurationWidget(QWidget):
         self.lineEditWireId.clear()
         for planElement in self.devicePlan.planList:
             if isinstance(planElement, Devices.Camera):
-                self.lineEditCameraId.addItem(str(planElement.id) + ": " + planElement.name)
+                self.lineEditCameraId.addItem(str(planElement.id) + ":" + planElement.name)
             elif isinstance(planElement, Devices.Sensor):
-                self.lineEditSensorId.addItem(str(planElement.id) + ": " + planElement.name)
+                self.lineEditSensorId.addItem(str(planElement.id) + ":" + planElement.name)
             elif isinstance(planElement, Devices.Wire):
-                self.lineEditWireId.addItem(str(planElement.id) + ": " + planElement.name)
+                self.lineEditWireId.addItem(str(planElement.id) + ":" + planElement.name)
             else:
                 logger.debug("not reconized")
         if isinstance(self.selectedPlanElement, Devices.Camera):
-            self.lineEditCameraId.setCurrentIndex(self.lineEditCameraId.findText(str(self.selectedPlanElement.id) + ": " + self.selectedPlanElement.name))
+            self.lineEditCameraId.setCurrentIndex(self.lineEditCameraId.findText(str(self.selectedPlanElement.id) + ":" + self.selectedPlanElement.name))
         elif isinstance(self.selectedPlanElement, Devices.Sensor):
-            self.lineEditSensorId.setCurrentIndex(self.lineEditSensorId.findText(str(self.selectedPlanElement.id) + ": " + self.selectedPlanElement.name))
+            self.lineEditSensorId.setCurrentIndex(self.lineEditSensorId.findText(str(self.selectedPlanElement.id) + ":" + self.selectedPlanElement.name))
         elif isinstance(self.selectedPlanElement, Devices.Wire):
-            self.lineEditWireId.setCurrentIndex(self.lineEditWireId.findText(str(self.selectedPlanElement.id) + ": " + self.selectedPlanElement.name))
+            self.lineEditWireId.setCurrentIndex(self.lineEditWireId.findText(str(self.selectedPlanElement.id) + ":" + self.selectedPlanElement.name))
         else:
             logger.debug("not reconized selected PlanElement: " + str(self.selectedPlanElement))
 
@@ -352,6 +351,7 @@ class ConfigurationWidget(QWidget):
         self.lineEditWireSecondDevice.clear()
         self.update_idBoxes()
 
+    '''This Method reads the configurations of devices which the user entered'''
     def save_configuration(self):
         if isinstance(self.selectedPlanElement, Devices.Camera):
             self.selectedPlanElement.size        = self.lineEditCameraSize.value()
@@ -361,7 +361,7 @@ class ConfigurationWidget(QWidget):
             self.selectedPlanElement.positionX   = int(self.lineEditCameraPositionX.text())
             self.selectedPlanElement.positionY   = int(self.lineEditCameraPositionY.text())
             self.selectedPlanElement.positionZ   = int(self.lineEditCameraPositionZ.text())
-            self.selectedPlanElement.DSLEventId  = self.lineEditDSLEventId.currentText()
+            self.selectedPlanElement.DSLEventId  = self.lineEditCameraDSLEvent.currentText()
         elif isinstance(self.selectedPlanElement, Devices.Sensor):
             self.selectedPlanElement.size        = self.lineEditSensorSize.value()
             self.selectedPlanElement.name        = self.lineEditSensorName.text()
@@ -395,6 +395,7 @@ class ConfigurationWidget(QWidget):
     '''Methods for DSLEvents'''
     def save_DSLEvent(self):
         self.DSLEventWidgetRoot.readout_widgets()
+        #position change
         self.DSLEventWidgetRoot.DSLEventListHandler.add_DSLEvent_to_section(name = self.lineEditDSLEventName.text())
         self.update_DSLEventBox()
 
@@ -413,9 +414,11 @@ class ConfigurationWidget(QWidget):
             self.lineEditCameraDSLEvent.clear()
             for section in self.DSLEventWidgetRoot.DSLEventListHandler.DSLEventDictionary.keys():
                 for key in self.DSLEventWidgetRoot.DSLEventListHandler.DSLEventDictionary[section].keys():
-                    self.lineEditDSLEventId.addItem(section+"."+key+": "+ self.DSLEventWidgetRoot.DSLEventListHandler.DSLEventDictionary[section][key]["name"])
-                    self.lineEditCameraDSLEvent.addItem(section+"."+key+": "+ self.DSLEventWidgetRoot.DSLEventListHandler.DSLEventDictionary[section][key]["name"])
-                    #
+                    self.lineEditDSLEventId.addItem(section+"."+key+":"+ self.DSLEventWidgetRoot.DSLEventListHandler.DSLEventDictionary[section][key]["name"])
+                    if section == "basic":
+                        continue
+                    else:
+                        self.lineEditCameraDSLEvent.addItem(section+"."+key+":"+ self.DSLEventWidgetRoot.DSLEventListHandler.DSLEventDictionary[section][key]["name"])
             self.lineEditDSLEventId.blockSignals(False)
             self.lineEditCameraDSLEvent.blockSignals(False)
         except Exception as exception:

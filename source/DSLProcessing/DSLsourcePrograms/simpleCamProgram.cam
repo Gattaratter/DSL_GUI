@@ -8,6 +8,10 @@ Event(PhotoCapture, [
                     
                     Event(SendData, "Done")
                     ])
+                    
+Event(Test, [
+                variable = 3
+                ])                 
                   
 #Erstellung der benoetigten Geraete
 ip =  "192.168.0.0"
@@ -19,7 +23,7 @@ Connection(Kabel_1 ,KameraOben, Lichtschranke, wire, "Pin1")
 
 #Logik des ausfuehrenden PCs
 geschwindigkeit = 10
-distanz_1 = 100
+distanz_1 = 10
 
 sendData(KameraOben, distanz_1/geschwindigkeit)
 sendData(KameraOben, 5)

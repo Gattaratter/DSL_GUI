@@ -2,10 +2,10 @@ Program:
   commands *= ProgramCommand
 ;
 ProgramCommand:
-    Device|EventCommand
+    Device|CustomEvent|EventCommand
 ;
 EventCommand:
-  Commentline|ControlStructure|Variable|Functions|CustomEvent|BasicEvent
+  Commentline|ControlStructure|Variable|Functions|BasicEvent|UserEvent
   ;
   
 //Devices
@@ -19,7 +19,7 @@ Sensor:
     'Sensor' '(' name =  ID ',' position = Position ')'
     ;
 Connection:
-    'Connection' '(' name = ID ',' firstDevice =  ID ',' secondDevice = ID ',' type = ConnectionType ',' line = STRING')'
+    'Connection' '(' name = ID ',' firstDevice =  ID ',' secondDevice = ID ',' type = ConnectionType ',' line = Expression')'
     ;
 Position:
     '(' INT','INT','INT ')'
@@ -32,6 +32,9 @@ ConnectionType:
 CustomEvent:
     'Event(' name =  ID ',' '['commandList += EventCommand[','] ']'')'
     ;
+UserEvent:
+    'Event''(' name = ID')'
+    ;  
 BasicEvent:
     EventPhoto|EventPhotos|EventWait|EventVideo|EventSaveLocation|EventTimerTrigger|EventSignalTrigger|EventSendSignal|EventSendData|EventReceiveData|EventConfiguration|EventAutomatedSignal
     ;

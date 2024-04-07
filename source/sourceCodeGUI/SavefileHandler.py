@@ -61,22 +61,32 @@ class DSLFileHandler(SaveFileHandler):
         super().__init__(filePath)
 
     def save_DSLCode(self,  devicePlan, DSLEventListHandler):
-        path = self.filePath
-        if path[-4:] != ".txt":
-            path += ".txt"
+        try:
+            path = self.filePath
+            if path[-4:] != ".cam":
+                path += ".cam"
 
-        lines_DSLEvents = ""
-        lines_devices = ""
+            lines_DSLEvents = ""
+            lines_devices = ""
 
+            '''if device Names are not unique adds the id to the name to unsure loading the saved modell is possible'''
+            names = []
+            for device in devicePlan.planList:
+                if device.name in names:
+                    device.name = device.name+"_"+str(device.id)
+                names.append(device.name)
 
-        for device in devicePlan.planList:
-            '''create DSL-Code for DeviceObjects'''
-            lines_devices += device.create_DSLline() + "\n"
-        '''create DSL-Code for Event logic'''
-        lines_DSLEvents += DSLEventListHandler.create_DSLlines() + "\n"
+            for device in devicePlan.planList:
+                '''create DSL-Code for DeviceObjects'''
+                lines_devices += device.create_DSLline() + "\n"
+            '''create DSL-Code for Event logic'''
+            lines_DSLEvents += DSLEventListHandler.create_DSLlines() + "\n"
+            logger.debug(f"success")
+        except Exception as exception:
+            logger.debug(f"Error while genereating DSL-Modell:{exception}")
 
         with open(path, 'w') as savefile:
-            savefile.write("//The following lines define all the custom Events which where created" + "\n")
+            savefile.write("#The following lines define all the custom Events which were created" + "\n")
             savefile.write(lines_DSLEvents + "\n")
-            savefile.write("\n"+"//The following lines define all the devices which where created" + "\n")
+            savefile.write("\n"+"#The following lines define all the devices which were created" + "\n")
             savefile.write(lines_devices + "\n")
