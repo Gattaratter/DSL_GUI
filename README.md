@@ -1,25 +1,28 @@
 Projektstruktur\
 source/sourceCodeGUI: Pythonskripte, für den graphischen DSL-Designer \
-  /MainWindow.py: Startet das Programm\
+&emsp;/MainWindow.py: Startet das Programm
   
 source/savefiles: \
-  /DSL:                    Enthält generierte DSL-Modelle\
-  /DSLEvents/BasicCamera:  Enthält eine Zuordnung der BasisEvents für Kameras\
-  /DSLEvents/CustomCamera: Enthält eine Zuordnung der CustomEvents für Kameras\
-  /plans:                  Enthält gespeicherte Pläne vom physischen Aufbau\
+&emsp;/DSL:                    Enthält generierte DSL-Modelle\
+&emsp;/DSLEvents/BasicCamera:  Enthält eine Zuordnung der BasisEvents für Kameras\
+&emsp;/DSLEvents/CustomCamera: Enthält eine Zuordnung der CustomEvents für Kameras\
+&emsp;/plans:                  Enthält gespeicherte Pläne vom physischen Aufbau
 
 source/resources: \
-  /configurations:   Enthält config Dateien, z.B. für das Logging vom graphischen Deisigner\
-  /icons:            Enthält Bilder für den graphischen Designer\
+&emsp;/configurations:   Enthält config Dateien, z.B. für das Logging vom graphischen Deisigner\
+&emsp;/icons:            Enthält Bilder für den graphischen Designer
 
 source/GeneratedPythonCode: nutzbarer generierter Code\
-  /DSLPythonPackage:  Bibliothek für den generierten Code\
-  /PypylonMockup:     Bibliohek zum Testen ohne Kameras\
+&emsp;/DSLPythonPackage:  Bibliothek für den generierten Code\
+&emsp;/PypylonMockup:     Bibliohek zum Testen ohne Kameras
 
 source/DSLProcessing: Grammatik und Bestandteile, um Python-Code zu generieren\
-  /DSLsourceGraphs:     visuelle darstellung der DSL-Modelle\
-  /DSLsourcePrograms:   DSL-Modelle, die verarbeitet werden sollen\
-  /GeneratorSourceCode: Codegenerator inklusive verwendeter Module\
+  &emsp;/DSLsourceGraphs:     visuelle darstellung der DSL-Modelle\
+  &emsp;/DSLsourcePrograms:   DSL-Modelle, die verarbeitet werden sollen\
+  &emsp;/GeneratorSourceCode:\
+  &emsp;&emsp;/Codegenerator.py: Script, um aus einem DSL-Modell eine Python-Datei zu generieren\
+  &emsp;&emsp;/LineCreator.py: Klasse, um für die einzelnen Konzepte der DSL Strings zu erzeugen\
+  &emsp;&emsp;/SemanticValidator.py Klasse, um die Semantik der einzelnen Konzepte und dem DSL-Modell im ganzen zu prüfen:
   
   
   
