@@ -1,3 +1,5 @@
+#Commands to create images with GraphViz
+
 textx generate camera_grammar.tx --target=dot --overwrite
 dot -Tpng -O camera_grammar.dot
 
