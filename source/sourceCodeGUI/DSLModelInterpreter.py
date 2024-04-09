@@ -3,6 +3,7 @@ import Devices
 import DSLEvent
 import SavefileHandler
 
+'''This class loads a DSL model and converts its Commands into dictionaries, which are then evaluated'''
 class DSLModelInterpreter():
     def __init__(self, filepath):
         self.DSL_meta = metamodel_from_file("../DSLProcessing/camera_grammar.tx")

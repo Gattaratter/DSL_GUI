@@ -14,7 +14,8 @@ source/resources: \
 
 source/GeneratedPythonCode: nutzbarer generierter Code\
 &emsp;/DSLPythonPackage:  Bibliothek für den generierten Code\
-&emsp;/PypylonMockup:     Bibliohek zum Testen ohne Kameras
+&emsp;/PypylonMockup:     Bibliohek zum Testen ohne Kameras\
+&emsp;/Tests:     DSL-Testmodelle, aus denen Python-Code generiert wurde
 
 source/DSLProcessing: Grammatik und Bestandteile, um Python-Code zu generieren\
   &emsp;/DSLsourceGraphs:     visuelle darstellung der DSL-Modelle\

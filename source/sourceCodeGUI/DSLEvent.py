@@ -7,6 +7,8 @@ import logging.config
 logging.config.fileConfig('../resources/configurations/logging.conf')
 logger = logging.getLogger(__name__)
 
+
+'''These classes implement each Basic-Event and its needed parameters and how they are saved'''
 class DSLEventListHandler:
     def __init__(self, name = "none"):
         self.name = name

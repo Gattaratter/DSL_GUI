@@ -8,6 +8,7 @@ import queue
 
 from DSLPythonPackage import Trigger
 
+'''These classes implement the devices and all functions of the Basic-Events'''
 class Device:
     def __init__(self):
         pass

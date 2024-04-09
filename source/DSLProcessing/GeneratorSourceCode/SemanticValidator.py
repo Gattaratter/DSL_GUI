@@ -19,7 +19,6 @@ class SemanticValidator():
 
 
     def add_command(self, command):
-        print("addCommand", type(command))
 
         if textx_isinstance(command, self.DSL_meta["Device"]):
             self.returnMessage += self.typecheck_parameter_devices(command)
@@ -81,7 +80,6 @@ class SemanticValidator():
         def typecheck_parameter_Connection(device):
             errorCode = ""
             if not self.typecheck_expression(device.line, (str)):
-                print(type(device.line), device)
                 errorCode += f"The line of the 'Device': {device.name} needs to be a String."
 
             # Die von einer Connection verbundenen Geräte müssen definiert und verschieden sein.
@@ -309,11 +307,10 @@ class SemanticValidator():
         if textx_isinstance(expression, self.DSL_meta["ArithmeticOperation"]):
             for operand in expression.operand:
                 if not textx_isinstance(operand, self.DSL_meta["Symbol"]) and not self.typecheck_expression(operand, demandedTypes):
-                    print("hierr", expression.operand[0].operand)
                     return False
             return True
         elif textx_isinstance(expression, self.DSL_meta["Functions"]):
-            print("Function need implementation")
+            #print("Function need implementation") #Der Datentyp der zurückgegebenen Werte kann erst dynamisch geprüft werden
             return True
         elif textx_isinstance(expression, self.DSL_meta["Operand"]):
             if isinstance(expression.operand, demandedTypes):

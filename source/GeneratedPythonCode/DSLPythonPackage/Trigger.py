@@ -3,10 +3,12 @@ from PypylonMockup import pylon
 
 import timeit
 
+'''This class manages activation of events'''
 class Trigger:
     def __init__(self):
         pass
 
+'''Trigger which react to a set timer'''
 class TimerTrigger(Trigger):
     def __init__(self, duration, event):
         self.duration = duration
@@ -22,7 +24,7 @@ class TimerTrigger(Trigger):
         else:
             return False
 
-
+'''Trigger which react to a signal'''
 class SignalTrigger(Trigger):
     def __init__(self, inputLine, value, event, camera):
         self.inputLine = inputLine

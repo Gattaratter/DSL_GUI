@@ -5,6 +5,7 @@ import queue
 
 from DSLPythonPackage import Trigger
 
+'''These classes were used to test without the pypylon library'''
 
 class Device:
     def __init__(self):

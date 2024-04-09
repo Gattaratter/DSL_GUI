@@ -1,0 +1,10 @@
+#The following lines define all the custom Events which were created
+Event(innerCustomEvent, [Event(Wait, 5),
+			Event(Photos, 2, 2)])
+Event(outerCustomEvent, [Event(Video, 0)
+			,Event(innerCustomEvent)])
+
+
+
+#The following lines define all the devices which were created
+

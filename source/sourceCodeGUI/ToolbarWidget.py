@@ -6,6 +6,7 @@ import logging.config
 logging.config.fileConfig('../resources/configurations/logging.conf')
 logger = logging.getLogger(__name__)
 
+'''This class implements the Tool-Widget from the GUI'''
 class ToolbarWidget(QWidget):
     def __init__(self, labelMain, DSLEventWidgetRoot, variables):
         super().__init__()

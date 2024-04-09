@@ -7,6 +7,7 @@ import logging.config
 logging.config.fileConfig('../resources/configurations/logging.conf')
 logger = logging.getLogger(__name__)
 
+'''A graphical representation is required for each basic event and a root widget on which they are placed'''
 class DSLEventRootWidget(QWidget):
     def __init__(self, DSLEventListHandler, variables, *args, **kwargs):
         super().__init__(*args, **kwargs)

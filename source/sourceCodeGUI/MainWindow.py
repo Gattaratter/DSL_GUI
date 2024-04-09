@@ -20,6 +20,8 @@ import logging.config
 logging.config.fileConfig('../resources/configurations/logging.conf')
 logger = logging.getLogger(__name__)
 
+'''This class manages the GUI'''
+
 class MainWindow(QMainWindow):
     signalUpdate = pyqtSignal()
     def __init__(self):

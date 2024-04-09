@@ -6,7 +6,7 @@ import logging
 logger = logging.getLogger(__name__)
 logging.basicConfig(filename='logfile.log', level=logging.DEBUG, format='%(asctime)s - %(levelname)8s: %(message)s')
 
-
+'''The generator interprets the AST of the DSL model, checks the semantics with the SemanticValidator and simultaneously generates Python codelines'''
 def main():
     # Laden der Grammatik inklusive dem zu nutzenden DSL-Modell
     DSL_meta = metamodel_from_file("../camera_grammar.tx")

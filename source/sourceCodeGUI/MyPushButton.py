@@ -6,6 +6,7 @@ import logging.config
 logging.config.fileConfig('../resources/configurations/logging.conf')
 logger = logging.getLogger(__name__)
 
+'''This class creates a basis for the dragable Buttons'''
 class MyPushButton(QPushButton):
     def __init__(self, variables, *args, **kwargs):
         super().__init__(*args, **kwargs)

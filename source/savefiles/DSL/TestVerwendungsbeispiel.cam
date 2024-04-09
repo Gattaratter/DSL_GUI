@@ -1,0 +1,15 @@
+#The following lines define all the custom Events which were created
+Event(KameraOben, [Event(Wait, 2),
+			Event(Photos, 2, 8)])
+Event(KameraUnten, [Event(Wait, 6),
+			Event(Photos, 1, 10)])
+
+
+
+#The following lines define all the devices which were created
+Camera(KameraOben, (361,207,0), "0.0.0.0", KameraOben)
+Camera(KameraUnten, (564,315,0), "0.0.0.0", KameraUnten)
+Sensor(Lichtschranke, (265,274,0))
+Connection(VerbindungOben,Lichtschranke, KameraOben, wire, "Pin1")
+Connection(VerbindungUnten,Lichtschranke, KameraUnten, wire, "Pin1")
+

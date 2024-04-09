@@ -9,6 +9,7 @@ import logging.config
 logging.config.fileConfig('../resources/configurations/logging.conf')
 logger = logging.getLogger(__name__)
 
+'''This class implements the Configuration-Widget from the GUI'''
 class ConfigurationWidget(QWidget):
     def __init__(self, signalUpdate, devicePlan, DSLEventWidgetRoot, variables):
         super().__init__()

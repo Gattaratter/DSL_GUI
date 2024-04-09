@@ -2,6 +2,8 @@ import logging.config
 logging.config.fileConfig('../resources/configurations/logging.conf')
 logger = logging.getLogger(__name__)
 
+
+'''These classes implement each Device and its needed parameters and how they are saved'''
 class Device:
     def __init__(self, id, button, positionX, positionY, positionZ=0, size = 30, name="none"):
         self.id = id

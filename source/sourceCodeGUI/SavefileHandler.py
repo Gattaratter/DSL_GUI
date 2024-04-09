@@ -5,6 +5,7 @@ import logging.config
 logging.config.fileConfig('../resources/configurations/logging.conf')
 logger = logging.getLogger(__name__)
 
+'''These classes manage the reading and writing of files'''
 class SaveFileHandler:
     def __init__(self, filePath):
         self.filePath = filePath

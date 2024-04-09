@@ -1,5 +1,6 @@
 import socket
 
+'''These functions implement the functions which can be used in the Main Program'''
 def sendData(receiverDevice, data):
     receiverDevice.messageQueueReceive.put(data)
 
