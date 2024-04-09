@@ -1,0 +1,7 @@
+#The following lines define all the custom Events which were created
+
+
+
+#The following lines define all the devices which were created
+Camera(none, (166,85,0), "0.0.0.0", None)
+

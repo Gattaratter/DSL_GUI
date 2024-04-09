@@ -1,0 +1,9 @@
+#The following lines define all the custom Events which were created
+
+
+
+#The following lines define all the devices which were created
+Camera(none, (117,117,0), "0.0.0.0", None)
+Sensor(none_1, (113,272,0))
+Connection(none_none,none, none_1, wire, "Pin1")
+

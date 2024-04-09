@@ -1,0 +1,7 @@
+#The following lines define all the custom Events which were created
+Event(none, [Event(Video, 0)])
+
+
+
+#The following lines define all the devices which were created
+
