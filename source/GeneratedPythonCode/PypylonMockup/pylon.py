@@ -25,6 +25,10 @@ class TlFactory():
         testDevice.deviceInfo.ipAddress = "192.168.0.1"
         devices.append(testDevice)
 
+        testDevice = Device()
+        testDevice.deviceInfo.ipAddress = "0.0.0.0"
+        devices.append(testDevice)
+
         return devices
 
 
@@ -65,7 +69,7 @@ class Device():
     def IsGrabbing(self):
         return self.grabbing
 
-    def RetrieveResult(timeout, exeption):
+    def RetrieveResult(self, timeout, exeption):
         result = GrabResult()
         return result
 
@@ -104,7 +108,7 @@ class PylonImageWindow():
     def __init__(self):
         self.visible = True
 
-    def Create(self):
+    def Create(self, parameter):
         pass
 
     def SetImage(self, grabResult):

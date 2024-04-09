@@ -1,3 +1,4 @@
+#A model in which all concepts are used, but not necessarily in a meaningful way
 #Variable and Controlstructure tests
 test0 = 7
 if(test0){
@@ -5,6 +6,7 @@ if(test0){
 }
 while(test0){
     test0 = 0
+    break
 }
 test = 33 + 5 * (3-4+test0)
 test1 = "hallo1"
@@ -23,7 +25,8 @@ Event(WaitToPhotos, [
                     Event(Wait, a_8), 
                     Event(Photos, 5, 9),
                     Event(Configuration, width, 200),
-                    Event(AutomatedSignal, flashlight, "Pin1", True)
+                    Event(AutomatedSignal, flashlight, "Pin1", True),
+                    break
                     ])
                     
 Event(Custumonus, [
@@ -31,9 +34,9 @@ Event(Custumonus, [
                     if(test0){
                         test0 = 1
                     },
-                    duration = receiveData(),
-                    count = receiveData(),
-                    delay = receiveData(),
+                    Event(ReceiveData, duration),
+                    Event(ReceiveData, count),
+                    Event(ReceiveData, delay),
                     Event(Wait, duration), 
                     Event(Photo),
                     Event(Photos, count, delay),
@@ -47,16 +50,15 @@ Event(Custumonus, [
                   
 #Device tests
 Camera(KameraOben, (1,4,0), "192.168.0.0", WaitToPhotos)
-Camera(KameraUnten, (1,4,0), "192.168.0.1", WaitToPhotosososososos)
-Camera(KameraUnten, (43,0,0), "192.168.0.1", WaitToPhotos)
+Camera(KameraUnten, (1,5,0), "192.168.0.1", WaitToPhotos)
 Sensor(Lichtschranke, (0,3,0))
 Connection(Kabel_1 ,KameraOben, Lichtschranke, wire, "Pin1")      
-Connection(Kabel_2 ,KameraObener, KameraObener, wire, "Pin1")      
+Connection(Kabel_2 ,KameraUnten, Lichtschranke, wire, "Pin1")      
 
 
 #Function tests
 sendData(KameraOben, 2)    
-receiveData(KameraObener)    
+receiveData(KameraOben)    
 sendTCP("192.168.0.1", 8080, client, 5)   
 receiveTCP("192.168.0.1", 8080, client)
 writeFile("savefile", "HelloUniverse")

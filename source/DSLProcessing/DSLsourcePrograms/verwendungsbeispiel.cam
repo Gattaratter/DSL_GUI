@@ -40,3 +40,6 @@ sendData(KameraOben, 2)
 sendData(KameraUnten, distanz_2/geschwindigkeit)
 sendData(KameraUnten, 10)
 sendData(KameraUnten, 1)
+
+returnValueOben = receiveData(KameraOben)
+returnValueUnten = receiveData(KameraUnten)

@@ -1,0 +1,11 @@
+Event(Event_0, [
+            Event(Video, 1),
+            break
+            ])   
+                    
+Event(EventKameraOben, [
+                    Event(TimerTrigger, 2, Event_0)
+                    ])  
+                    
+                    
+Camera(KameraOben, (1,4,0), "192.168.0.0", EventKameraOben)

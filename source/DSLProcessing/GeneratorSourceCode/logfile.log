@@ -1,29 +1,4 @@
-2024-04-03 00:20:59,784 - Func:                           main - Line:   51 -     INFO: Program wurde erfolgreich generiert
-2024-04-03 00:22:53,912 - Func:                           main - Line:   51 -     INFO: Program wurde erfolgreich generiert
-2024-04-03 00:23:12,406 - Func:                           main - Line:   51 -     INFO: Program wurde erfolgreich generiert
-2024-04-03 00:23:46,851 - Func:                           main - Line:   51 -     INFO: Program wurde erfolgreich generiert
-2024-04-03 00:24:14,888 - Func:                           main - Line:   51 -     INFO: Program wurde erfolgreich generiert
-2024-04-03 00:24:50,825 - Func:                           main - Line:   51 -     INFO: Program wurde erfolgreich generiert
-2024-04-03 00:25:09,689 - Func:                           main - Line:   51 -     INFO: Program wurde erfolgreich generiert
-2024-04-03 00:25:19,540 - Func:                           main - Line:   51 -     INFO: Program wurde erfolgreich generiert
-2024-04-03 00:25:31,295 - Func:                           main - Line:   51 -     INFO: Program wurde erfolgreich generiert
-2024-04-03 00:28:56,472 - Func:                           main - Line:   51 -     INFO: Program wurde erfolgreich generiert
-2024-04-03 00:29:09,646 - Func:                           main - Line:   51 -     INFO: Program wurde erfolgreich generiert
-2024-04-03 00:29:39,296 - Func:                           main - Line:   51 -     INFO: Program wurde erfolgreich generiert
-2024-04-03 00:30:24,140 - Func:                           main - Line:   51 -     INFO: Program wurde erfolgreich generiert
-2024-04-03 00:30:45,829 - Func:                           main - Line:   51 -     INFO: Program wurde erfolgreich generiert
-2024-04-03 00:32:08,243 - Func:                           main - Line:   52 -     INFO: Program wurde erfolgreich generiert
-2024-04-03 00:32:33,446 - Func:                           main - Line:   52 -     INFO: Program wurde erfolgreich generiert
-2024-04-03 00:33:26,788 - Func:                           main - Line:   52 -     INFO: Program wurde erfolgreich generiert
-2024-04-03 00:34:42,695 - Func:                           main - Line:   50 -     INFO: Program wurde mit Fehlern generiert:receiveData-transmitterDevice: Kamera is not defined.The device of the Function 'ReceiveData' needs to be defined.
-2024-04-03 00:35:15,831 - Func:                           main - Line:   50 -     INFO: Program wurde mit Fehlern generiert:The device of the Function 'ReceiveData' needs to be defined.
-2024-04-03 00:35:47,355 - Func:                           main - Line:   50 -     INFO: Program wurde mit Fehlern generiert:The device of the Function 'ReceiveData' needs to be defined.
-2024-04-03 00:49:47,259 - Func:                           main - Line:   52 -     INFO: Program wurde erfolgreich generiert
-2024-04-03 00:49:55,737 - Func:                           main - Line:   50 -     INFO: Program wurde mit Fehlern generiert:receiveData-transmitterDevice: KameraObe is not defined.
-2024-04-03 00:51:04,044 - Func:                           main - Line:   50 -     INFO: Program wurde mit Fehlern generiert:The transmitterDevice: KameraObe in the Funktion 'ReceiveData' is not defined.
-2024-04-03 00:51:18,576 - Func:                           main - Line:   52 -     INFO: Program wurde erfolgreich generiert
-2024-04-03 00:52:04,072 Line:   52 -     INFO: Program wurde erfolgreich generiert
-2024-04-03 00:52:17,733 -     INFO: Program wurde erfolgreich generiert
+
 2024-04-03 01:23:17,006 -     INFO: Program wurde mit Fehlern generiert:The inputLine of the Event 'SignalTrigger' needs to be a string, like 'Pin2'The value of the Event 'SignalTrigger' needs to be Boolean, like True/False.The inputLine of the Event 'SignalTrigger' needs to be a string, like 'Pin2'The value of the Event 'SignalTrigger' needs to be Boolean, like True/False.
 2024-04-03 14:12:41,267 -     INFO: Program wurde mit Fehlern generiert:The postion: (1,4,0) of the 'Device': KameraOben is not unique.The name of the 'Device': KameraOben is not unique.The postion: (0,3,0) of the 'Device': Lichtschranke is not unique.The name of the 'Device': Lichtschranke is not unique.The name of the 'Device': Kabel_1 is not unique.The line of the 'Device': Kabel_1 needs to be a String.
 2024-04-03 14:12:52,971 -     INFO: Program wurde mit Fehlern generiert:The postion: (1,4,0) of the 'Device': KameraOben is not unique.The name of the 'Device': KameraOben is not unique.The postion: (0,3,0) of the 'Device': Lichtschranke is not unique.The name of the 'Device': Lichtschranke is not unique.The name of the 'Device': Kabel_1 is not unique.The line of the 'Device': Kabel_1 needs to be a String.
@@ -63,3 +38,49 @@
 2024-04-07 16:45:42,730 -     INFO: Program wurde erfolgreich generiert
 2024-04-07 16:46:27,909 -     INFO: Program wurde erfolgreich generiert
 2024-04-07 16:46:37,086 -     INFO: Program wurde erfolgreich generiert
+2024-04-07 19:00:20,787 -     INFO: Program wurde erfolgreich generiert
+2024-04-07 19:05:36,183 -     INFO: Program wurde erfolgreich generiert
+2024-04-07 19:09:06,632 -     INFO: Program wurde erfolgreich generiert
+2024-04-07 19:10:55,493 -     INFO: Program wurde mit Fehlern generiert:The receiverDevice: KameraObens in the function 'SendData' is not defined.
+2024-04-07 19:11:02,173 -     INFO: Program wurde erfolgreich generiert
+2024-04-08 14:46:37,837 -     INFO: Program wurde erfolgreich generiert
+2024-04-08 14:48:26,637 -     INFO: Program wurde erfolgreich generiert
+2024-04-08 14:52:59,090 -     INFO: Program wurde mit Fehlern generiert:The referenced 'Event': None is not defined.
+2024-04-08 14:59:56,628 -     INFO: Program wurde erfolgreich generiert
+2024-04-08 15:00:12,066 -     INFO: Program wurde erfolgreich generiert
+2024-04-08 15:00:58,157 -     INFO: Program wurde erfolgreich generiert
+2024-04-08 15:02:52,193 -     INFO: Program wurde mit Fehlern generiert:The referenced 'Event': None is not defined.
+2024-04-08 15:06:46,032 -     INFO: Program wurde erfolgreich generiert
+2024-04-08 15:07:43,214 -     INFO: Program wurde erfolgreich generiert
+2024-04-08 22:56:07,529 -     INFO: Program wurde erfolgreich generiert
+2024-04-08 22:57:28,395 -     INFO: Program wurde erfolgreich generiert
+2024-04-08 23:02:55,266 -     INFO: Program wurde erfolgreich generiert
+2024-04-08 23:07:18,543 -     INFO: Program wurde erfolgreich generiert
+2024-04-08 23:16:56,857 -     INFO: Program wurde erfolgreich generiert
+2024-04-09 00:23:06,781 -     INFO: Program wurde erfolgreich generiert
+2024-04-09 00:40:48,452 -     INFO: Program wurde mit Fehlern generiert:The postion: (1,4,0) of the 'Device': KameraUnten is not unique.The name of the 'Device': KameraUnten is not unique.Connection-firstDevice: KameraObener is not defined.Connection-secondDevice: KameraObener is not defined.Connection, connected devices cant't be the same: KameraObener.The transmitterDevice: KameraObener in the function 'ReceiveData' is not defined.
+2024-04-09 00:57:46,307 -     INFO: Program wurde mit Fehlern generiert:The name of the 'Device': KameraUnten is not unique.Connection-firstDevice: KameraObener is not defined.Connection-secondDevice: KameraObener is not defined.Connection, connected devices cant't be the same: KameraObener.The transmitterDevice: KameraObener in the function 'ReceiveData' is not defined.
+2024-04-09 00:57:56,190 -     INFO: Program wurde mit Fehlern generiert:Connection-firstDevice: KameraObener is not defined.Connection-secondDevice: KameraObener is not defined.Connection, connected devices cant't be the same: KameraObener.The transmitterDevice: KameraObener in the function 'ReceiveData' is not defined.
+2024-04-09 00:58:14,523 -     INFO: Program wurde mit Fehlern generiert:The transmitterDevice: KameraObener in the function 'ReceiveData' is not defined.
+2024-04-09 00:58:23,013 -     INFO: Program wurde erfolgreich generiert
+2024-04-09 01:03:05,173 -     INFO: Program wurde erfolgreich generiert
+2024-04-09 01:15:17,741 -     INFO: Program wurde erfolgreich generiert
+2024-04-09 11:42:24,551 -     INFO: Program wurde erfolgreich generiert
+2024-04-09 11:42:47,564 -     INFO: Program wurde erfolgreich generiert
+2024-04-09 11:51:30,761 -     INFO: Program wurde erfolgreich generiert
+2024-04-09 11:54:29,538 -     INFO: Program wurde erfolgreich generiert
+2024-04-09 11:56:28,243 -     INFO: Program wurde erfolgreich generiert
+2024-04-09 11:57:30,598 -     INFO: Program wurde erfolgreich generiert
+2024-04-09 11:58:22,031 -     INFO: Program wurde erfolgreich generiert
+2024-04-09 12:00:42,155 -     INFO: Program wurde erfolgreich generiert
+2024-04-09 12:02:33,293 -     INFO: Program wurde erfolgreich generiert
+2024-04-09 12:15:34,253 -     INFO: Program wurde erfolgreich generiert
+2024-04-09 12:21:31,695 -     INFO: Program wurde mit Fehlern generiert:The referenced 'Event': WaitToPhotos is not defined.
+2024-04-09 12:21:49,686 -     INFO: Program wurde erfolgreich generiert
+2024-04-09 12:28:13,633 -     INFO: Program wurde erfolgreich generiert
+2024-04-09 17:02:06,455 -     INFO: Program wurde erfolgreich generiert
+2024-04-09 17:18:22,653 -     INFO: Program wurde erfolgreich generiert
+2024-04-09 17:19:57,858 -     INFO: Program wurde erfolgreich generiert
+2024-04-09 17:27:30,111 -     INFO: Program wurde erfolgreich generiert
+2024-04-09 17:30:21,508 -     INFO: Program wurde erfolgreich generiert
+2024-04-09 17:31:57,277 -     INFO: Program wurde erfolgreich generiert

@@ -24,7 +24,10 @@ class Camera(Device):
         self.name = name
         self.position = position
         self.ipAddress = ipAddress
-        self.event = lambda : event(device = self)
+        if event:
+            self.event = lambda: event(device = self)
+        else:
+            self.event = None
         self.camera = None
         self.savelocation = "."
         self.thread = None
@@ -42,7 +45,8 @@ class Camera(Device):
 
     def threadFunction(self):
         self.openCamera()
-        self.event()
+        if self.event:
+            self.event()
 
     def openCamera(self):
         selfcamera = None
@@ -84,13 +88,13 @@ class Camera(Device):
             startTime = time.time()
             imageWindow = pylon.PylonImageWindow()
             imageWindow.Create(1)
-            self.camera.StartGrabbingMax(10000, pylon.GrabStrategy_LatestImageOnly)
+            self.camera.StartGrabbingMax(10000, "pylon.GrabStrategy_LatestImageOnly")
             while self.camera.IsGrabbing():
                 endTime = time.time()
                 # check if requested Video length is reached
                 if endTime - startTime > duration:
                     break
-                grabResult = self.camera.RetrieveResult(5000, pylon.TimeoutHandling_ThrowException)
+                grabResult = self.camera.RetrieveResult(5000, "pylon.TimeoutHandling_ThrowException")
                 if grabResult.GrabSucceeded():
                     imageWindow.SetImage(grabResult)
                     imageWindow.Show()
@@ -114,7 +118,8 @@ class Camera(Device):
         while not self.eventStop.is_set():
             if trigger.evaluate():
                     print("triggerd Timer")
-                    trigger.event()
+                    if trigger.event():
+                        return
             time.sleep(0.1)
 
     def eventSignalTrigger(self, inputline, value, event):
@@ -122,7 +127,8 @@ class Camera(Device):
         while not self.eventStop.is_set():
             if trigger.evaluate():
                     print("triggerd Signal")
-                    trigger.event()
+                    if trigger.event():
+                        return
             time.sleep(0.1)
 
 
@@ -158,7 +164,6 @@ class Camera(Device):
                     self.position = value
         except Exception as exception:
             print("Error", exception)
-
 
     def eventAutomatedSignal(self, mode, outputLine, value):
         self.signalMode = {"mode": mode,

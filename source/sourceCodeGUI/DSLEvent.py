@@ -8,7 +8,7 @@ logging.config.fileConfig('../resources/configurations/logging.conf')
 logger = logging.getLogger(__name__)
 
 class DSLEventListHandler:
-    def __init__(self, name = "/"):
+    def __init__(self, name = "none"):
         self.name = name
         self.DSLEventDictionary = {}
         self.DSLEventDictionary["custom"] = {}
@@ -43,7 +43,7 @@ class DSLEventListHandler:
             DSLEventFileHandler = SavefileHandler.DSLEventFileHandler(path[0])
             DSLEventFileHandler.save_custom_DSLEventDict(self.DSLEventDictionary["custom"])
 
-    def add_DSLEvent_to_section(self, name = "/", section = "custom"):
+    def add_DSLEvent_to_section(self, name = "none", section = "custom"):
         try:
             if not section in self.DSLEventDictionary:
                 self.DSLEventDictionary[section] = {}
@@ -84,7 +84,7 @@ class DSLEvent(ABC):
 
 
 class DSLEventCustom(DSLEvent):
-    def __init__(self, name = "/", DSLEventList = None):
+    def __init__(self, name = "none", DSLEventList = None):
         if DSLEventList is None:
             self.DSLEventList = []
         self.name = name
@@ -149,7 +149,11 @@ class DSLEventCustom(DSLEvent):
                     line += f"{DSLEvent.create_DSLline()}"
                 else:
                     line += f",\n\t\t\t{DSLEvent.create_DSLline()}"
-        line = f"Event({self.name}, [{line}])"
+        if self.name:
+            name = self.name
+        else:
+            name = "none"
+        line = f"Event({name}, [{line}])"
         return line
 
 

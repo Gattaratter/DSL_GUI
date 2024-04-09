@@ -3,6 +3,7 @@ from PyQt6.QtWidgets import QApplication, QMainWindow, QFrame, QSizePolicy, QLab
     QToolBar, QFileDialog
 from PyQt6.QtGui import QIcon, QAction, QPixmap, QPainter
 from PyQt6.QtCore import QSize, Qt, pyqtSignal
+import json
 
 '''Eigene Dateien'''
 import ToolbarWidget
@@ -435,7 +436,9 @@ class MainWindow(QMainWindow):
             try:
                 DSLModellreader = DSLModelInterpreter.DSLModelInterpreter(path[0])
                 DSLModellreader.load_DSLModel()
-
+                #print(json.dumps(DSLModellreader.DSLCustomEventListHandler.DSLEventDictionary, sort_keys = True, indent = 4))
+                self.DSLEventList.DSLEventDictionary["custom"] = DSLModellreader.DSLCustomEventListHandler.DSLEventDictionary["custom"]
+                self.configurationWidget.update_DSLEventBox()
                 self.new_plan()
                 for element in DSLModellreader.dictionaryList:
                     self.add_devicePlanListItem(element)

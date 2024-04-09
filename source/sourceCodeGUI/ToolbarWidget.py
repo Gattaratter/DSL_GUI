@@ -166,6 +166,7 @@ class ToolbarWidget(QWidget):
 
     def update_customEventBox(self):
         try:
+            self.customEventComboBox.clear()
             for key in self.DSLEventWidgetRoot.DSLEventListHandler.DSLEventDictionary["custom"].keys():
                 self.customEventComboBox.addItem("custom"+"."+key+":"+self.DSLEventWidgetRoot.DSLEventListHandler.DSLEventDictionary["custom"][key]["name"])
         except Exception as exception:

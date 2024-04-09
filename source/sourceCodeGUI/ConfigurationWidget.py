@@ -422,4 +422,4 @@ class ConfigurationWidget(QWidget):
             self.lineEditDSLEventId.blockSignals(False)
             self.lineEditCameraDSLEvent.blockSignals(False)
         except Exception as exception:
-            logger.debug("Failed to update DSLEventbox:", exception)
+            logger.debug(f"Failed to update DSLEventbox: {exception}")

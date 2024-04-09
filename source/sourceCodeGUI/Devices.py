@@ -3,7 +3,7 @@ logging.config.fileConfig('../resources/configurations/logging.conf')
 logger = logging.getLogger(__name__)
 
 class Device:
-    def __init__(self, id, button, positionX, positionY, positionZ=0, size = 30, name="None"):
+    def __init__(self, id, button, positionX, positionY, positionZ=0, size = 30, name="none"):
         self.id = id
         self.button = button
         self.positionX = positionX
@@ -13,7 +13,7 @@ class Device:
         self.name = name
 
 class Camera(Device):
-    def __init__(self, id, button, positionX, positionY, positionZ = 0, size = 30, name="None", modell = "None", ipAddress = "0.0.0.0", DSLEventId = None):
+    def __init__(self, id, button, positionX, positionY, positionZ = 0, size = 30, name="none", modell = "none", ipAddress = "0.0.0.0", DSLEventId = None):
         super().__init__(id, button, positionX, positionY, positionZ, size, name)
         self.modell = modell
         self.ipAddress = ipAddress
@@ -35,11 +35,15 @@ class Camera(Device):
         return dictionary
 
     def create_DSLline(self):
-        line = (f"Camera({self.name}, ({self.positionX},{self.positionY},{self.positionZ}), \"{self.ipAddress}\", {self.DSLEventId.split(':')[1]})")
+        if self.DSLEventId:
+            event = self.DSLEventId.split(':')[1]
+        else:
+            event = self.DSLEventId
+        line = (f"Camera({self.name}, ({self.positionX},{self.positionY},{self.positionZ}), \"{self.ipAddress}\", {event})")
         return line
 
 class Sensor(Device):
-    def __init__(self, id, button, positionX, positionY, positionZ = 0, size = 30, name="None"):
+    def __init__(self, id, button, positionX, positionY, positionZ = 0, size = 30, name="none"):
         super().__init__(id, button, positionX, positionY, positionZ, size, name)
 
     def create_dictionary(self):
@@ -60,7 +64,7 @@ class Sensor(Device):
         return line
 
 class Wire:
-    def __init__(self, id, button, firstDevice, secondDevice, size = 20, name = "None"):
+    def __init__(self, id, button, firstDevice, secondDevice, size = 20, name = "none"):
         self.id = id
         self.button = button
         self.firstDevice = firstDevice

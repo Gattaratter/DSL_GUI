@@ -1,6 +1,6 @@
 {
     "0": {
-        "name": "asd",
+        "name": "a",
         "DSLEventDictionaryList": [
             {
                 "name": "DSLEventWait",
@@ -10,6 +10,34 @@
                 "name": "DSLEventPhoto",
                 "delay": "1",
                 "count": "1"
+            }
+        ]
+    },
+    "1": {
+        "name": "b",
+        "DSLEventDictionaryList": [
+            {
+                "name": "DSLEventWait",
+                "duration": "0"
+            },
+            {
+                "name": "DSLEventPhoto",
+                "delay": "1",
+                "count": "1"
+            },
+            {
+                "name": "a",
+                "DSLEventDictionaryList": [
+                    {
+                        "name": "DSLEventWait",
+                        "duration": "4"
+                    },
+                    {
+                        "name": "DSLEventPhoto",
+                        "delay": "4",
+                        "count": "4"
+                    }
+                ]
             }
         ]
     }

@@ -1,0 +1,53 @@
+#To test send/receive the Timertrigger calls the event once until it calls break
+
+Event(PhotoCapture, [
+                    Event(ReceiveData, duration),
+                    Event(ReceiveData, count),
+                    Event(ReceiveData, delay),
+
+                    Event(Wait, duration), 
+                    Event(Photos, count, delay),
+                    break
+                    ])
+
+Event(EventKameraOben, [
+                    Event(TimerTrigger, 2, PhotoCapture),
+                    Event(SendData, "KameraOben hat die Bildaufnahme abgeschlossen")
+                    ])
+
+Event(EventKameraUnten, [
+                    Event(TimerTrigger, 4, PhotoCapture),
+                    Event(SendData, "KameraUnten hat die Bildaufnahme abgeschlossen")
+                    ])
+                    
+                    
+#Erstellung der benoetigten Geraete
+Camera(KameraOben, (1,4,0), "192.168.0.0", EventKameraOben)
+Camera(KameraUnten, (4,0,0), "192.168.0.1", EventKameraUnten)
+
+Sensor(Lichtschranke, (0,3,0))
+
+Connection(Kabel_1 ,KameraOben, Lichtschranke, wire, "Pin1")
+Connection(Kabel_2, KameraUnten, Lichtschranke, wire, "Pin1")
+
+
+#Logik des ausfuehrenden PCs
+geschwindigkeit = 10
+distanz_1 = 10
+distanz_2 = 30
+
+sendData(KameraOben, distanz_1/geschwindigkeit)
+sendData(KameraOben, 5)
+sendData(KameraOben, 2)
+
+sendData(KameraUnten, distanz_2/geschwindigkeit)
+sendData(KameraUnten, 10)
+sendData(KameraUnten, 1)
+
+returnValueOben = receiveData(KameraOben)
+returnValueUnten = receiveData(KameraUnten)
+
+trigger(KameraOben)
+sendData(KameraOben, distanz_1/geschwindigkeit)
+sendData(KameraOben, 5)
+sendData(KameraOben, 2)

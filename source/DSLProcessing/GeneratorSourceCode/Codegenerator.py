@@ -10,9 +10,10 @@ logging.basicConfig(filename='logfile.log', level=logging.DEBUG, format='%(ascti
 def main():
     # Laden der Grammatik inklusive dem zu nutzenden DSL-Modell
     DSL_meta = metamodel_from_file("../camera_grammar.tx")
-    #DSLPath = "../DSLsourcePrograms/a.cam"
+    #DSLPath = "../../savefiles/DSL/TestNestedCustomEvent.cam"
     DSLPath = "../DSLsourcePrograms/modell.cam"
     DSLProgramm = DSL_meta.model_from_file(DSLPath)
+    #PythonPath = "../../GeneratedPythonCode/Tests/TestVerwendungsbeispiel.py"
     PythonPath = "../../GeneratedPythonCode/generatedCode.py"
 
     # Objekte, um Strings zu erzeugen und die Semantik zu prüfen
@@ -22,6 +23,8 @@ def main():
 
     with open(PythonPath, 'w') as savefile:
         savefile.write(f"#The following code was generated out of DSL-code from the file: {DSLPath}")
+       # savefile.write(f"\nimport sys")
+       # savefile.write(f"\nsys.path.append('../../GeneratedPythonCode')")
         savefile.write(lineCreator.lines_import())
         savefile.write("\nlogger.info('Program wurde gestartet')")
 

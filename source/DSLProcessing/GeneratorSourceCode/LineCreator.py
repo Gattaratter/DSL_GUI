@@ -33,14 +33,14 @@ class LineCreator():
             lines += indent + self.lines_function(command)
         return lines
 
-    def lines_eventCommand(self, command, indent):
+    def lines_eventCommand(self, command, indent, breakable = False):
         lines = ""
         if textx_isinstance(command, self.DSL_meta["Variable"]):
             lines += indent + self.lines_variable(command)
         if textx_isinstance(command, self.DSL_meta["Commentline"]):
             lines += indent + '#' + str(command.text)
         if textx_isinstance(command, self.DSL_meta["ControlStructure"]):
-            lines += indent + self.lines_controlStructure(command, indent)
+            lines += indent + self.lines_controlStructure(command, indent, breakable)
         if textx_isinstance(command, self.DSL_meta["Device"]):
             lines += indent + self.lines_device(command)
         if textx_isinstance(command, self.DSL_meta["Functions"]):
@@ -76,7 +76,7 @@ class LineCreator():
         return lines
 
 
-    def lines_controlStructure(self, structure, indent=""):
+    def lines_controlStructure(self, structure, indent="", breakable = False):
         indent += "    "
         lines = ""
         expression = ""
@@ -90,15 +90,18 @@ class LineCreator():
         if textx_isinstance(structure, self.DSL_meta["Condition"]):
             lines += f"if {expression}:"
             for command in structure.commands:
-                lines += f"\n{self.lines_eventCommand(command, indent)}"
+                lines += f"\n{self.lines_eventCommand(command, indent, breakable)}"
 
         elif textx_isinstance(structure, self.DSL_meta["WhileLoop"]):
             lines += f"while {expression}:"
             for command in structure.commands:
-                lines += f"\n{self.lines_eventCommand(command, indent)}"
+                lines += f"\n{self.lines_eventCommand(command, indent, True)}"
 
         elif textx_isinstance(structure, self.DSL_meta["Break"]):
-            lines += f"break"
+            if breakable:
+                lines += f"break"
+            else:
+                lines += f"return True"
 
         return lines
 
@@ -131,6 +134,8 @@ class LineCreator():
             lines += f"writeFile({self.lines_expression(function.filename)}, {self.lines_expression(function.data)})"
         if textx_isinstance(function, self.DSL_meta["ReadFile"]):
             lines += f"readFile({self.lines_expression(function.filename)})"
+        if textx_isinstance(function, self.DSL_meta["Trigger"]):
+            lines += f"trigger({function.device})"
         return lines
 
 
@@ -156,7 +161,7 @@ class LineCreator():
         elif textx_isinstance(event, self.DSL_meta["EventSaveLocation"]):
             lines += f"device.eventSaveLocation({self.lines_expression(event.filepath)})"
         elif textx_isinstance(event, self.DSL_meta["EventTimerTrigger"]):
-            lines += f"device.eventTimerTrigger({self.lines_expression(event.duration)}, {event.event})"
+            lines += f"device.eventTimerTrigger({self.lines_expression(event.duration)}, lambda: {event.event}(device=device))"
         elif textx_isinstance(event, self.DSL_meta["EventSignalTrigger"]):
             lines += f"device.eventSignalTrigger({self.lines_expression(event.inputLine)}, {self.lines_expression(event.value)}, lambda: {event.event}(device=device))"
         elif textx_isinstance(event, self.DSL_meta["EventSendSignal"]):
@@ -168,5 +173,5 @@ class LineCreator():
         elif textx_isinstance(event, self.DSL_meta["EventConfiguration"]):
             lines += f"device.eventConfiguration({event.attribute}, {self.lines_expression(event.value)})"
         elif textx_isinstance(event, self.DSL_meta["EventAutomatedSignal"]):
-            lines += f"eventAutomatedSignal({event.mode}, {self.lines_expression(event.outputLine)}, {self.lines_expression(event.value)})"
+            lines += f"device.eventAutomatedSignal({event.mode}, {self.lines_expression(event.outputLine)}, {self.lines_expression(event.value)})"
         return lines

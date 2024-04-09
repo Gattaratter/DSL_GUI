@@ -9,7 +9,6 @@ class SemanticValidator():
         self.customEventList = []
         self.cameraList = []
         self.connectionList = []
-        self.receiveDataList = []
 
         self.variableList = []
         self.variableNameList = []
@@ -53,13 +52,13 @@ class SemanticValidator():
 
 
     # Das Gerät, von dem Daten empfangen werden sollen muss definiert sein
-    def rule_receiveData_device(self):
+    def is_device_defined(self, name):
         errorCode = ""
         names = list(map(lambda device: device.name, self.deviceList))
-        for receiveData in self.receiveDataList:
-            if not receiveData.transmitterDevice in names:
-                errorCode += f"The transmitterDevice: {receiveData.transmitterDevice} in the Funktion 'ReceiveData' is not defined."
-        return errorCode
+        if name in names:
+            return True
+        else:
+            return False
 
 
     def typecheck_parameter_devices(self, device):
@@ -121,6 +120,7 @@ class SemanticValidator():
         def rule_deviceEvent_defined(device):
             errorCode = ""
             names = list(map(lambda event: event.name, self.customEventList))
+            names.append("None")
             if not device.eventName in names:
                errorCode += f"The referenced 'Event': {device.eventName} is not defined."
             return errorCode
@@ -235,7 +235,7 @@ class SemanticValidator():
             errorCode += typecheck_parameter_eventReceiveData(event)
         elif textx_isinstance(event, self.DSL_meta["EventConfiguration"]):
             errorCode += typecheck_parameter_eventConfiguration(event)
-        elif textx_isinstance(event, self.DSL_meta["AutomatedSignal"]):
+        elif textx_isinstance(event, self.DSL_meta["EventAutomatedSignal"]):
             errorCode += typecheck_parameter_eventAutomatedSignal(event)
 
         return errorCode
@@ -243,46 +243,49 @@ class SemanticValidator():
 
     def typecheck_parameter_functions(self, function):
         def typecheck_parameter_sendData(function):
-            return ""
+            errorCode = ""
+            if not self.is_device_defined(function.receiverDevice):
+                errorCode += f"The receiverDevice: {function.receiverDevice} in the function 'SendData' is not defined."
+            return errorCode
 
         def typecheck_parameter_receiveData(function):
             errorCode = ""
-            self.receiveDataList.append(function)
-            errorCode += self.rule_receiveData_device()
+            if not self.is_device_defined(function.transmitterDevice):
+                errorCode += f"The transmitterDevice: {function.transmitterDevice} in the function 'ReceiveData' is not defined."
             return errorCode
 
         def typecheck_parameter_sendTCP(function):
             errorCode = ""
             if not self.typecheck_expression(function.ipAddress, (str)):
-                errorCode += f"The ipAddress of the Function 'SendTCP' needs to be a String."
+                errorCode += f"The ipAddress of the function 'SendTCP' needs to be a String."
             if not self.typecheck_expression(function.port, (int)):
-                errorCode += f"The port of the Function 'SendTCP' needs to be a Integer."
+                errorCode += f"The port of the function 'SendTCP' needs to be a Integer."
             return errorCode
 
         def typecheck_parameter_receiveTCP(function):
             errorCode = ""
             if not self.typecheck_expression(function.ipAddress, (str)):
-                errorCode += f"The ipAddress of the Function 'ReceiveTCP' needs to be a String."
+                errorCode += f"The ipAddress of the function 'ReceiveTCP' needs to be a String."
             if not self.typecheck_expression(function.port, (int)):
-                errorCode += f"The port of the Function 'ReceiveTCP' needs to be a Integer."
+                errorCode += f"The port of the function 'ReceiveTCP' needs to be a Integer."
             return errorCode
 
         def typecheck_parameter_writeFile(function):
             errorCode = ""
             if not self.typecheck_expression(function.filename, (str)):
-                errorCode += f"The filename of the Function 'WriteFile' needs to be a String."
+                errorCode += f"The filename of the function 'WriteFile' needs to be a String."
             return errorCode
 
         def typecheck_parameter_readFile(function):
             errorCode = ""
             if not self.typecheck_expression(function.filename, (str)):
-                errorCode += f"The filename of the Function 'ReadFile' needs to be a String."
+                errorCode += f"The filename of the function 'ReadFile' needs to be a String."
             return errorCode
 
         def typecheck_parameter_trigger(function):
             errorCode = ""
-            if not self.typecheck_expression(function.filename, ()):
-                errorCode += f"The device of the Function 'Trigger' needs to be defined."
+            if not self.is_device_defined(function.device):
+                errorCode += f"The device of the function 'Trigger' needs to be defined."
             return errorCode
 
         if textx_isinstance(function, self.DSL_meta["SendData"]):
@@ -310,7 +313,7 @@ class SemanticValidator():
                     return False
             return True
         elif textx_isinstance(expression, self.DSL_meta["Functions"]):
-            print("Funktion need implementation")
+            print("Function need implementation")
             return True
         elif textx_isinstance(expression, self.DSL_meta["Operand"]):
             if isinstance(expression.operand, demandedTypes):

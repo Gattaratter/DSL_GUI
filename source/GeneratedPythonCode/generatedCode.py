@@ -1,4 +1,4 @@
-#The following code was generated out of DSL-code from the file: ../DSLsourcePrograms/modell.cam
+#The following code was generated out of DSL-code from the file: ../DSLsourcePrograms/TestSendAndReceive.cam
 from DSLPythonPackage.DSLDevices import*
 from DSLPythonPackage.DSLFunctions import*
 import logging
@@ -12,14 +12,17 @@ def PhotoCapture(device):
     delay = device.eventReceiveData()
     device.eventWait(duration)
     device.eventPhotos(count, delay)
+    return True
 def EventKameraOben(device):
-    device.eventSignalTrigger("Pin1", True, lambda: PhotoCapture(device=device))
+    device.eventTimerTrigger(2, lambda: PhotoCapture(device=device))
     device.eventSendData("KameraOben hat die Bildaufnahme abgeschlossen")
 def EventKameraUnten(device):
-    device.eventSignalTrigger("Pin1", True, lambda: PhotoCapture(device=device))
+    device.eventTimerTrigger(4, lambda: PhotoCapture(device=device))
     device.eventSendData("KameraUnten hat die Bildaufnahme abgeschlossen")
 
 devicesList = []
+
+#To test send/receive the Timertrigger calls the event once until it calls break
 
 #Erstellung der benoetigten Geraete
 
@@ -42,9 +45,9 @@ devicesList.append(Kabel_2)
 
 geschwindigkeit = 10
 
-distanz_1 = 100
+distanz_1 = 10
 
-distanz_2 = 300
+distanz_2 = 30
 
 sendData(KameraOben, distanz_1/geschwindigkeit)
 
@@ -57,4 +60,16 @@ sendData(KameraUnten, distanz_2/geschwindigkeit)
 sendData(KameraUnten, 10)
 
 sendData(KameraUnten, 1)
+
+returnValueOben = receiveData(KameraOben)
+
+returnValueUnten = receiveData(KameraUnten)
+
+trigger(KameraOben)
+
+sendData(KameraOben, distanz_1/geschwindigkeit)
+
+sendData(KameraOben, 5)
+
+sendData(KameraOben, 2)
 logger.info('Program wurde beendet')
